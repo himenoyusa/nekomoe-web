@@ -1,9 +1,13 @@
 import React from 'react';
+import useGlobal from '../../myHooks/useGlobal';
 
 const Admin = (props) => {
+  const [globalState] = useGlobal();
+
   return (
     <div>
-      admin
+      admin counter:
+      {globalState.lang}
       <button
         type="button"
         onClick={() => {

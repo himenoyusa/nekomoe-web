@@ -15,7 +15,7 @@ module.exports = {
     contentBase: './public',
     open: true,
     port: 3000,
-    // overlay: true, // 浏览器直接显示命令行的错误
+    overlay: true, // 浏览器直接显示命令行的错误
     hot: true,
     historyApiFallback: true,
     // hotOnly: true,
@@ -32,10 +32,6 @@ module.exports = {
         use: [
           {
             loader: MiniExtractPlugin.loader,
-            options: {
-              hmr: process.env.NODE_ENV === 'development',
-              reloadAll: true,
-            },
           },
           'css-loader',
           'sass-loader',
@@ -61,6 +57,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({ template: './src/index.html' }),
+    new MiniExtractPlugin(),
     new webpack.HotModuleReplacementPlugin(),
   ],
 };

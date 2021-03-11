@@ -1,11 +1,18 @@
 [
   {
-    "title": ["怪物事变", "怪事"],
-    "jTitle": "怪物事変",
+    "scTitle": ["怪物事变", "怪事"],
+    "tcTitle": ["怪物事变", "怪事"],
+    "jpTitle": "怪物事変",
     "year": "2021",
-    "month": "1",
+    "month": "01",
     "posterUrl": "images/事变.png",
     "status": "",
-    "subType": ["tc", "sc", "jp"]
+    "type": "anime|movie|ova|",
+    "subType": ["tc", "sc", "jp"],
+    "ripType": "BD",
+    "staff": {
+      "translator": [],
+      "rip": ""
+    }
   }
 ]

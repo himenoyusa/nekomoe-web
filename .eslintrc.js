@@ -27,4 +27,7 @@ module.exports = {
     'jsx-a11y/click-events-have-key-events': 'off',
     'react/jsx-curly-newline': 'off',
   },
+  settings: {
+    'import/resolver': 'webpack', // 解决 webpack 路径别名报错
+  },
 };

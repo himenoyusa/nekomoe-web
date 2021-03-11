@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniExtractPlugin = require('mini-css-extract-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const webpack = require('webpack');
 
@@ -32,10 +33,6 @@ module.exports = {
         use: [
           {
             loader: MiniExtractPlugin.loader,
-            options: {
-              hmr: process.env.NODE_ENV === 'development',
-              reloadAll: true,
-            },
           },
           'css-loader',
           'sass-loader',
@@ -60,7 +57,11 @@ module.exports = {
     },
   },
   plugins: [
+    new CopyWebpackPlugin({
+      patterns: [{ from: './public', to: './' }],
+    }),
     new CleanWebpackPlugin(),
+    new MiniExtractPlugin(),
     new HtmlWebpackPlugin({ template: './src/index.html' }),
     new webpack.HotModuleReplacementPlugin(),
   ],
