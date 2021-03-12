@@ -1,4 +1,21 @@
+@import '../../public';
+
+.home-background {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+}
+
 .homepage {
-  min-height: 100vh;
-  color: rgb(48, 5, 5);
+  position: relative;
+  margin: 0 auto;
+  min-height: calc(100vh - #{$headerHeight});
+  max-width: $bodyWidth;
+  background-color: inherit;
+
+  .content {
+    border-top: 1px solid #ccc;
+    padding: 10px;
+  }
 }

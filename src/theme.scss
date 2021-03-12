@@ -1,0 +1,25 @@
+@import './public';
+
+body {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+
+  .white-theme {
+    color: $fontColorWhite;
+    background-color: $backgroundColorWhite;
+    transition: background $animationSpeed, color $animationSpeed;
+  }
+
+  .dark-theme {
+    @import './antd.rewrite';
+    color: $fontColorDark;
+    background-color: $backgroundColorDark;
+    transition: background $animationSpeed, color $animationSpeed;
+  }
+
+  .homepage {
+    transition: all $animationSpeed;
+  }
+}

@@ -1,15 +1,26 @@
 {
   "sc": {
+    "lang": "sc",
     "title": "喵萌奶茶屋",
     "confirm": "确认",
     "cancel": "取消",
     "translator": "翻译",
-    "redirect": "跳转"
+    "redirect": "跳转",
+    "note": "测试声明",
+    "copyright": "© 2021 Nekomoe"
   },
   "tc": {
+    "lang": "tc"
 
   },
   "jp": {
-
+    "lang": "jp",
+    "title": "猫萌え喫茶店",
+    "confirm": "確認",
+    "cancel": "キャンセル",
+    "translator": "翻译",
+    "redirect": "跳转",
+    "note": "声明",
+    "copyright": "© 2021 Nekomoe"
   }
 }

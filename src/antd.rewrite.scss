@@ -1,0 +1,40 @@
+@import './public';
+
+$blueSky: #e6f7ff;
+
+// 覆盖 antd 样式
+// 下拉框
+.ant-select {
+  color: inherit !important;
+
+  .ant-select-selector {
+    background-color: inherit !important;
+  }
+  .ant-select-selection-search {
+    color: $fontColorDark !important;
+  }
+  .ant-select-arrow {
+    color: $fontColorDark !important;
+  }
+  .ant-select-dropdown {
+    background-color: $fontColorWhite !important;
+  }
+  .ant-select-item {
+    color: $fontColorDark !important;
+  }
+  .ant-select-item-option-active {
+    color: $fontColorWhite !important;
+  }
+  .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+    background-color: $blueSky !important;
+    color: $fontColorWhite !important;
+  }
+}
+
+// 开关
+.ant-switch {
+  background-color: $fontColorWhite !important;
+}
+.ant-switch-checked {
+  background-color: $blueSky !important;
+}

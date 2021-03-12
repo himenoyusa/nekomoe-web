@@ -7,7 +7,7 @@ const Admin = (props) => {
   return (
     <div>
       admin counter:
-      {globalState.lang}
+      {globalState.lang.title}
       <button
         type="button"
         onClick={() => {
