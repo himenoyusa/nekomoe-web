@@ -9,13 +9,89 @@
 
 .homepage {
   position: relative;
-  margin: 0 auto;
-  min-height: calc(100vh - #{$headerHeight});
   max-width: $bodyWidth;
   background-color: inherit;
+  @media (min-width: $mediaMinWidth) {
+    margin: $headerHeight + 10px auto 0;
+    min-height: calc(100vh - #{$headerHeight + 10px});
+  }
+  @media (max-width: $mediaMaxWidth) {
+    margin: 0 auto;
+    min-height: calc(100vh - #{$headerHeight});
+  }
+
+  // 引入跑马灯组件样式
+  @import '~react-image-gallery/styles/scss/image-gallery.scss';
+  .image-gallery-image {
+    height: 50vh;
+    @media (min-width: $mediaMinWidth) {
+      max-height: 50vh !important;
+    }
+    @media (max-width: $mediaMaxWidth) {
+      max-height: 30vh !important;
+    }
+  }
 
   .content {
-    border-top: 1px solid #ccc;
     padding: 10px;
+    margin-bottom: $footerHeight;
+
+    .anime-card {
+      @media (min-width: $mediaMinWidth) {
+        width: 25%;
+        padding: 25px;
+        padding-bottom: 5px;
+      }
+      @media (max-width: $mediaMaxWidth) {
+        width: 50%;
+        padding: 5px;
+        padding-bottom: 25px;
+      }
+      overflow: hidden;
+
+      .anime-card-img {
+        padding: 50%;
+        border-radius: 10%;
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        transition: border-radius $animationSpeed;
+
+        &:hover {
+          border-radius: 5%;
+        }
+      }
+      .anime-card-title {
+        width: 100%;
+        padding: 5px;
+        padding-bottom: 0;
+        overflow: hidden;
+        font-size: 1.3em;
+        font-weight: bold;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+      .anime-card-note {
+        opacity: 0.8;
+        padding: 0 5px;
+        font-size: small;
+        span {
+          float: right;
+        }
+      }
+    }
+  }
+}
+
+.flex-box {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  // justify-content: center;
+  align-items: flex-start;
+
+  .flex-item {
+    // flex: auto;
   }
 }

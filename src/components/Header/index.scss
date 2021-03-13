@@ -1,9 +1,22 @@
 @import '../../public';
 
 header {
-  width: 100vw;
-  height: $headerHeight;
-  background-color: inherit;
+  @media (min-width: $mediaMinWidth) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: $headerHeight;
+    z-index: 5;
+    background-color: inherit;
+    box-shadow: 0 0 5px #222;
+    transition: background-color $animationSpeed;
+  }
+  @media (max-width: $mediaMaxWidth) {
+    width: 100vw;
+    height: $headerHeight;
+    background-color: inherit;
+  }
 
   .header-body {
     margin: 0 auto;
@@ -42,7 +55,6 @@ header {
         width: $headerHeight;
         height: $headerHeight;
         overflow: hidden;
-        border-left: 1px solid;
         text-align: center;
         font-size: 30px;
 
@@ -58,12 +70,12 @@ header {
         }
       }
     }
-    @media (min-width: 768px) {
+    @media (min-width: $mediaMinWidth) {
       .header-mobile {
         display: none;
       }
     }
-    @media (max-width: 767px) {
+    @media (max-width: $mediaMaxWidth) {
       .header-screen {
         display: none;
       }
@@ -81,7 +93,7 @@ header {
   transition: border-top $animationSpeed, max-height $animationSpeed;
 
   .mobile-navbar-item {
-    border-top: 1px solid;
+    padding: 5px;
   }
 }
 

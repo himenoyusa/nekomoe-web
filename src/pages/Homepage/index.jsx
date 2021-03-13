@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { Tooltip } from 'antd';
 import myAxios from 'utils/myAxios';
 import useGlobal from '../../myHooks/useGlobal';
 
 import Header from '../../components/Header';
+import Carousel from './components/Carousel';
 import Footer from '../../components/Footer';
 
 import './index.scss';
@@ -36,29 +38,45 @@ const Homepage = () => {
   const backgroundStyle = {
     backgroundImage: `url(${theme === 'white' ? backgroundWhite : backgroundDark})`,
   };
+  const borderTop = {
+    borderTop: `1px solid ${theme === 'white' ? '#ddd' : '#444'}`,
+  };
 
   return (
     <div className={`${theme}-theme home-background`} style={backgroundStyle}>
       <Header />
       <div className="homepage">
-        <div className="content">
-          homepage
-          <Link to="/admin">
-            <button type="button">跳转</button>
-          </Link>
-          {list.map((item) => (
-            <div key={item.scTitle}>
-              <div>
-                <img src={item.posterUrl} style={{ width: 200, height: 200 }} alt="" />
+        <div style={borderTop}>
+          <Carousel />
+        </div>
+        <div className="content" style={borderTop}>
+          <div className="flex-box">
+            {list.map((item) => (
+              <div className="flex-item anime-card" key={item.jpTitle}>
+                <div
+                  className="anime-card-img"
+                  style={{ backgroundImage: `url(${item.posterUrl})` }}
+                >
+                  {/* <img src={item.posterUrl} style={{ width: 200, height: 200 }} alt="" /> */}
+                </div>
+                <Tooltip
+                  placement="topLeft"
+                  color={theme === 'white' ? '' : '#2db7f5'}
+                  title={item.jpTitle[0]}
+                >
+                  <div className="anime-card-title">{item[`${lang.lang}Title`][0]}</div>
+                </Tooltip>
+                <div className="anime-card-note">
+                  <span>
+                    {item.year}-{item.month}
+                  </span>
+                  <div>
+                    {lang.status}: {item.status}
+                  </div>
+                </div>
               </div>
-              <div>{item.scTitle[0]}</div>
-              <div>{item.jpTitle}</div>
-              <div>
-                {item.year}-{item.month}
-              </div>
-            </div>
-          ))}
-          <div>counter:{lang.title}</div>
+            ))}
+          </div>
         </div>
         <Footer />
         <div style={{ display: 'none' }}>

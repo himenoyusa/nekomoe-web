@@ -38,3 +38,16 @@ $blueSky: #e6f7ff;
 .ant-switch-checked {
   background-color: $blueSky !important;
 }
+
+// 输入框
+.ant-input {
+  color: $fontColorDark !important;
+  background-color: $fontColorWhite;
+}
+.ant-input-search-button {
+  color: $fontColorDark !important;
+}
+
+.ant-btn {
+  background-color: $fontColorWhite;
+}

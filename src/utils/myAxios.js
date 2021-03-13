@@ -11,7 +11,7 @@ if (token) {
 }
 
 const myAxios = axios.create({
-  baseURL: 'http://localhost:3000',
+  baseURL: 'http://192.168.2.101:3000',
   timeout: 1000000,
   headers,
 });

@@ -4,19 +4,18 @@ footer {
   position: absolute;
   left: 0;
   bottom: 0;
-  padding: 20px 0;
   margin: 0 auto;
   width: 100%;
-  font-size: 8px;
+  font-size: 0.8em;
 
   .footer-logo {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 100%;
+    width: $footerHeight;
+    height: $footerHeight;
+    margin: 0 auto;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center center;
+    cursor: pointer;
     transition: background-image $animationSpeed;
   }
 
@@ -24,6 +23,7 @@ footer {
     position: relative;
     width: 100%;
     height: 100%;
+    line-height: $footerHeight;
 
     .float-left {
       margin-left: 10px;

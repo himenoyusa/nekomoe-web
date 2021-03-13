@@ -6,12 +6,18 @@
     "cancel": "取消",
     "translator": "翻译",
     "redirect": "跳转",
+    "status": "状态",
+    "type": "类型",
+    "subType": "字幕类型",
+    "videoType": "片源类型",
+    "staff": "Staff",
+    "search": "搜索",
+    "searchPlaceholder": "请输入搜索内容",
     "note": "测试声明",
     "copyright": "© 2021 Nekomoe"
   },
   "tc": {
     "lang": "tc"
-
   },
   "jp": {
     "lang": "jp",

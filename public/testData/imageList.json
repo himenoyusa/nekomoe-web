@@ -1,0 +1,22 @@
+[
+  {
+    "original": "images/main/3.png",
+    "originalAlt": "ye",
+    "originalTitle": "nekomoe",
+    "description": "yes",
+    "height": 200,
+    "width": 200
+  },
+  {
+    "original": "images/main/2.png",
+    "originalAlt": "ye",
+    "originalTitle": "nekomoe",
+    "description": "yes"
+  },
+  {
+    "original": "images/main/1.png",
+    "originalAlt": "ye",
+    "originalTitle": "nekomoe",
+    "description": "yes"
+  }
+]

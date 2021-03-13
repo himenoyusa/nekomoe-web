@@ -19,7 +19,22 @@ body {
     transition: background $animationSpeed, color $animationSpeed;
   }
 
+  // 移动端隐藏
+  @media (max-width: $mediaMaxWidth) {
+    .mobile-invisible {
+      display: none;
+    }
+  }
+
+  // 桌面端隐藏
+  @media (min-width: $mediaMinWidth) {
+    .screen-invisible {
+      display: none;
+    }
+  }
+
   .homepage {
+    overflow: hidden;
     transition: all $animationSpeed;
   }
 }
