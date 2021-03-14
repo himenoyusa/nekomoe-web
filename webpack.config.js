@@ -10,7 +10,7 @@ module.exports = {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
   },
-  devtool: 'cheap-module-source-map',
+  devtool: 'eval-source-map',
   devServer: {
     contentBase: './public',
     host: '0.0.0.0', // ip 访问

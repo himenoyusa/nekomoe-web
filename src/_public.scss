@@ -14,3 +14,8 @@ $borderColorDark: #444;
 
 $mediaMinWidth: 768px;
 $mediaMaxWidth: 767px;
+
+// antd 样式覆盖公用
+$darkAntdFontColor: $fontColorDark;
+$darkAntdBackgroundColor: $fontColorWhite;
+$darkAntdBgColorActive: #e6f7ff;

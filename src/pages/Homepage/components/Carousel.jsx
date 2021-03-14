@@ -21,13 +21,13 @@ const Carousel = () => {
     <Gallery
       items={imageList}
       onErrorImageURL="images/2021-01/Gekidol_poster.jpg"
-      slideInterval={5000}
+      slideInterval={10000}
       lazyLoad
       showThumbnails={false}
       showFullscreenButton={false}
       showPlayButton={false}
       showBullets
-      // autoPlay
+      autoPlay
     />
   );
 };

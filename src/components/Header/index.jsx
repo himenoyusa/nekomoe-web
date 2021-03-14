@@ -15,12 +15,12 @@ const Header = () => {
   const [backgroundColor, setBackgroundColor] = useState('inherit');
 
   // 监听页面滚动，改变头部背景色（仅适用于桌面端）
+  // TODO: 移动端改成页头自适应
   useEffect(() => {
     if (window.innerWidth > 768) {
       const func = debounce(() => {
-        console.log(window.scrollY);
         if (window.scrollY > 100) {
-          setBackgroundColor(theme === 'white' ? 'rgba(255, 255, 255, 0.4)' : 'rgba(0, 0, 0, 0.4)');
+          setBackgroundColor(theme === 'white' ? 'rgba(255, 255, 255, 0.5)' : 'rgba(0, 0, 0, 0.5)');
         } else {
           setBackgroundColor('inherit');
         }

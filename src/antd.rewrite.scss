@@ -1,53 +1,82 @@
 @import './public';
 
-$blueSky: #e6f7ff;
+$darkAntdBgColorActive: #e6f7ff;
 
 // 覆盖 antd 样式
 // 下拉框
 .ant-select {
   color: inherit !important;
-
-  .ant-select-selector {
-    background-color: inherit !important;
-  }
-  .ant-select-selection-search {
-    color: $fontColorDark !important;
-  }
-  .ant-select-arrow {
-    color: $fontColorDark !important;
-  }
-  .ant-select-dropdown {
-    background-color: $fontColorWhite !important;
-  }
-  .ant-select-item {
-    color: $fontColorDark !important;
-  }
-  .ant-select-item-option-active {
-    color: $fontColorWhite !important;
-  }
-  .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
-    background-color: $blueSky !important;
-    color: $fontColorWhite !important;
-  }
+}
+.ant-select-selector {
+  background-color: inherit !important;
+}
+.ant-select-selection-search {
+  color: $darkAntdFontColor !important;
+}
+.ant-select-arrow {
+  color: $darkAntdFontColor !important;
+}
+.ant-select-dropdown {
+  background-color: $darkAntdBackgroundColor !important;
+}
+.ant-select-item {
+  color: $darkAntdFontColor !important;
+  background-color: $darkAntdBackgroundColor !important;
+}
+.ant-select-item-option-active {
+  color: $darkAntdBackgroundColor !important;
+  background-color: $darkAntdFontColor !important;
+}
+.ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+  background-color: $darkAntdBgColorActive !important;
+  color: $darkAntdBackgroundColor !important;
 }
 
 // 开关
 .ant-switch {
-  background-color: $fontColorWhite !important;
+  background-color: $darkAntdBackgroundColor !important;
 }
 .ant-switch-checked {
-  background-color: $blueSky !important;
+  background-color: $darkAntdBgColorActive !important;
 }
 
 // 输入框
 .ant-input {
-  color: $fontColorDark !important;
-  background-color: $fontColorWhite;
+  color: $darkAntdFontColor !important;
+  background-color: $darkAntdBackgroundColor !important;
 }
 .ant-input-search-button {
-  color: $fontColorDark !important;
+  color: $darkAntdFontColor !important;
 }
 
 .ant-btn {
-  background-color: $fontColorWhite;
+  background-color: $darkAntdBackgroundColor !important;
+}
+
+// 分页器
+.ant-pagination-total-text {
+  color: $darkAntdFontColor !important;
+}
+.ant-pagination-item-link {
+  background-color: $darkAntdBackgroundColor !important;
+  color: $darkAntdFontColor !important;
+}
+.ant-pagination-item {
+  background-color: $darkAntdBackgroundColor !important;
+  a {
+    color: $darkAntdFontColor !important;
+  }
+}
+.ant-select-selection-item {
+  color: $darkAntdFontColor !important;
+}
+.ant-pagination-item-ellipsis {
+  color: $darkAntdFontColor !important;
+}
+.ant-pagination-simple-pager {
+  color: $darkAntdFontColor !important;
+  input {
+    background-color: $darkAntdBackgroundColor !important;
+    color: $darkAntdFontColor !important;
+  }
 }
