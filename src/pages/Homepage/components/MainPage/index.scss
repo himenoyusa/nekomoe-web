@@ -1,0 +1,18 @@
+@import '../../../../public';
+
+.content {
+  padding: 10px;
+  margin-bottom: $footerHeight;
+}
+
+// 引入跑马灯组件样式
+@import '~react-image-gallery/styles/scss/image-gallery.scss';
+.image-gallery-image {
+  height: 50vh;
+  @media (min-width: $mediaMinWidth) {
+    max-height: 50vh !important;
+  }
+  @media (max-width: $mediaMaxWidth) {
+    max-height: 30vh !important;
+  }
+}

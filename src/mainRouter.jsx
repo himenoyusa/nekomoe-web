@@ -17,6 +17,10 @@ const mainRouter = [
     path: '/admin',
     component: Admin,
   },
+  {
+    path: '*',
+    component: () => 404,
+  },
 ];
 
 export default mainRouter;

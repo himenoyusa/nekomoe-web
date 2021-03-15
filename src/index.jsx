@@ -8,7 +8,7 @@ const App = () => (
   <HashRouter>
     <Switch>
       {mainRouter.map((each) => (
-        <Route path={each.path} component={each.component} exact key={each.path} />
+        <Route path={each.path} component={each.component} key={each.path} />
       ))}
     </Switch>
   </HashRouter>

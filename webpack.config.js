@@ -13,7 +13,7 @@ module.exports = {
   devtool: 'eval-source-map',
   devServer: {
     contentBase: './public',
-    host: '0.0.0.0', // ip 访问
+    // host: '0.0.0.0', // ip 访问
     open: true,
     port: 3000,
     overlay: true, // 浏览器直接显示命令行的错误

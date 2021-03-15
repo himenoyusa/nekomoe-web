@@ -1,22 +1,20 @@
 [
   {
-    "original": "images/main/3.png",
-    "originalAlt": "ye",
-    "originalTitle": "nekomoe",
-    "description": "yes",
-    "height": 200,
-    "width": 200
+    "original": "images/mainVisual/看板娘3代.png",
+    "originalAlt": "看板娘3代",
+    "originalTitle": "看板娘3代",
+    "description": "Nekomoe"
   },
   {
-    "original": "images/main/2.png",
-    "originalAlt": "ye",
-    "originalTitle": "nekomoe",
-    "description": "yes"
+    "original": "images/mainVisual/看板娘2代.png",
+    "originalAlt": "看板娘2代",
+    "originalTitle": "看板娘2代",
+    "description": "Nekomoe"
   },
   {
-    "original": "images/main/1.png",
-    "originalAlt": "ye",
-    "originalTitle": "nekomoe",
-    "description": "yes"
+    "original": "images/mainVisual/看板娘1代.png",
+    "originalAlt": "看板娘1代",
+    "originalTitle": "看板娘1代",
+    "description": "Nekomoe"
   }
 ]

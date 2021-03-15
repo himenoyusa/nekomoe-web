@@ -56,10 +56,9 @@ header {
         height: $headerHeight;
         overflow: hidden;
         text-align: center;
-        font-size: 30px;
 
         div {
-          line-height: $headerHeight - 5px;
+          line-height: $headerHeight;
           cursor: pointer;
           user-select: none;
           transition: transform $animationSpeed;

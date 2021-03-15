@@ -19,6 +19,11 @@ body {
     transition: background $animationSpeed, color $animationSpeed;
   }
 
+  .homepage {
+    overflow: hidden;
+    transition: all $animationSpeed;
+  }
+
   // 移动端隐藏
   @media (max-width: $mediaMaxWidth) {
     .mobile-invisible {
@@ -33,8 +38,69 @@ body {
     }
   }
 
-  .homepage {
-    overflow: hidden;
-    transition: all $animationSpeed;
+  // css 样式图标，公共样式
+  css-icon {
+    display: inline-block;
+    height: 1em; width: 1em;
+    font-size: 20px;
+    box-sizing: border-box;
+    text-indent: -9999px;
+    vertical-align: middle;
+    position: relative;
+  }
+  css-icon::before,
+  css-icon::after {
+    content: '';
+    box-sizing: inherit;
+    position: absolute;
+    left: 50%; top: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+  // css 样式图标
+  .icon-arrow-left::before {
+    height: .65em; width: .65em;
+    border-style: solid;
+    border-width: 2px 0 0 2px;
+    -ms-transform: translate(-25%, -50%) rotate(-45deg);
+    transform: translate(-25%, -50%) rotate(-45deg);
+  }
+  .icon-arrow-right::before {
+    height: .65em; width: .65em;
+    border-style: solid;
+    border-width: 2px 0 0 2px;
+    -ms-transform: translate(-75%, -50%) rotate(135deg);
+    transform: translate(-75%, -50%) rotate(135deg);
+  }
+  .icon-arrow-up::before {
+    height: .65em; width: .65em;
+    border-style: solid;
+    border-width: 2px 0 0 2px;
+    -ms-transform: translate(-50%, -25%) rotate(45deg);
+    transform: translate(-50%, -25%) rotate(45deg);
+  }
+  .icon-arrow-down::before {
+    height: .65em; width: .65em;
+    border-style: solid;
+    border-width: 2px 0 0 2px;
+    -ms-transform: translate(-50%, -75%) rotate(225deg);
+    transform: translate(-50%, -75%) rotate(225deg);
+  }
+  .icon-menu::before {
+    box-shadow: 0 -.35em, 0 .35em;
+    border-top: 2px solid;
+    width: 100%;
+  }
+  .icon-close::before {
+    width: 90%;
+    border-top: 2px solid;
+    -ms-transform: translate(-50%, -50%) rotate(45deg);
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+  .icon-close::after {
+    height: 90%;
+    border-left: 2px solid;
+    -ms-transform: translate(-50%, -50%) rotate(45deg);
+    transform: translate(-50%, -50%) rotate(45deg);
   }
 }

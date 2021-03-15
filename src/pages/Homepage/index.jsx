@@ -1,8 +1,9 @@
 import React from 'react';
+import { Route } from 'react-router-dom';
 import useGlobal from '../../myHooks/useGlobal';
 
+import homepageRouter from './homepageRouter';
 import Header from '../../components/Header';
-import Content from './components/Content';
 import Footer from '../../components/Footer';
 
 import './index.scss';
@@ -22,7 +23,9 @@ const Homepage = () => {
     <div className={`${theme}-theme home-background`} style={backgroundStyle}>
       <Header />
       <div className="homepage">
-        <Content />
+        {homepageRouter.map((each) => (
+          <Route path={each.path} component={each.component} exact key={each.path} />
+        ))}
         <Footer />
         <div style={{ display: 'none' }}>
           <img alt="背景图预加载" src={backgroundWhite} />

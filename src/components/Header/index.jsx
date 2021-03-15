@@ -106,7 +106,9 @@ const Header = () => {
           </div>
           <div className="header-button-group screen-invisible">
             <div className="header-button-switch" style={borderLeft} onClick={() => switchNav()}>
-              <div className={showNav ? ' switch-on' : ''}>&lt;</div>
+              <div className={showNav ? ' switch-on' : ''}>
+                <css-icon class="icon-arrow-left" />
+              </div>
             </div>
           </div>
         </div>
