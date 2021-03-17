@@ -51,7 +51,13 @@ const MainPage = () => {
       </div>
       <div className="content" style={borderTop}>
         <MenuList className="mobile-invisible" />
-        <CardList data={tempList} total={total} changePage={changePage} />
+        <CardList
+          page={page}
+          pageSize={pageSize}
+          data={tempList}
+          total={total}
+          changePage={changePage}
+        />
       </div>
     </>
   );

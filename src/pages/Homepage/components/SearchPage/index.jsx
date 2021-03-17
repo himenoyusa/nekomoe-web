@@ -87,7 +87,13 @@ const SearchPage = (props) => {
           />
         </span>
       </div>
-      <CardList data={tempList} total={total} changePage={changePage} />
+      <CardList
+        data={tempList}
+        page={page}
+        pageSize={pageSize}
+        total={total}
+        changePage={changePage}
+      />
     </div>
   );
 };

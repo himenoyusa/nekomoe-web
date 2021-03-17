@@ -78,6 +78,7 @@ const DetailPage = () => {
         <Carousel imageList={imageList} />
       </div>
       <div className="right-message-box">
+        <div className="mobile-invisible" style={{ height: 60 }} />
         <Descriptions column={1} title={lang.info}>
           {Array.isArray(details.jpTitle) && details.jpTitle.length && (
             <Descriptions.Item label={lang.jpName}>

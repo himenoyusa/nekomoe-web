@@ -69,6 +69,21 @@ header {
   }
 }
 
+.history-back {
+  position: fixed;
+  padding: 15px;
+  left: 20px;
+  bottom: 20px;
+  z-index: 1;
+  background-color: inherit;
+  border-radius: 50%;
+  box-shadow: 0 0 5px;
+  transition: opacity $animationSpeed;
+  &:hover {
+    opacity: 0.6;
+  }
+}
+
 .mobile-navbar-item {
   text-align: center;
 }

@@ -1,23 +1,25 @@
 @import '../../public';
 
 .home-background {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
   background-attachment: fixed;
+  transition: background-image $animationSpeed;
+}
 
-  &:before {
-    content: '';
-    display: block;
-    width: 100%;
-    @media (min-width: $mediaMinWidth) {
-      $gapHeight: 10px;
-      height: $headerHeight + $gapHeight;
-    }
-    @media (max-width: $mediaMaxWidth) {
-      $gapHeight: 0px;
-      height: $headerHeight + $gapHeight;
-    }
+.home-gap {
+  width: 100%;
+  @media (min-width: $mediaMinWidth) {
+    $gapHeight: 10px;
+    height: $headerHeight + $gapHeight;
+  }
+  @media (max-width: $mediaMaxWidth) {
+    $gapHeight: 0px;
+    height: $headerHeight + $gapHeight;
   }
 }
 
@@ -26,6 +28,9 @@
   max-width: $bodyWidth;
   background-color: inherit;
   margin: 0 auto;
+  overflow: hidden;
+  transition: all $animationSpeed;
+
   @media (min-width: $mediaMinWidth) {
     $gapHeight: 10px;
     min-height: calc(100vh - #{$headerHeight + $gapHeight});

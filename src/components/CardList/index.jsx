@@ -1,48 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { Tooltip, Pagination } from 'antd';
-import myAxios from 'utils/myAxios';
 import useGlobal from '../../myHooks/useGlobal';
 
 import './index.scss';
 
+/**
+ * @class 作品列表展示容器
+ * @param {number} page 当前页
+ * @param {number} pageSize 分页大小
+ * @param {number} total 总数
+ * @param {array} data 数据数组
+ */
 const CardList = (props) => {
   const [{ lang, theme }] = useGlobal();
-  const [list, setList] = useState([]);
-  const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(4);
-  const [total, setTotal] = useState(0);
-
-  useEffect(() => {
-    myAxios('testData/list.json')
-      .then((res) => {
-        if (res.status === 200) {
-          setList(res.data);
-          setTotal(res.data.length);
-        } else {
-          setList([]);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    return () => {
-      setList([]);
-    };
-  }, [page, pageSize]);
-
-  const changePage = (current, size) => {
-    setPage(current);
-    setPageSize(size);
-  };
-
-  // 前端伪分页
-  const tempList = props.data || list.slice((page - 1) * pageSize, page * pageSize);
 
   return (
     <>
       <div className="flex-box">
-        {tempList.map((item) => (
+        {props.data?.map((item) => (
           <div className="flex-item anime-card" key={item.jpTitle[0]}>
             {/* 跳转参数 state 暂未使用 */}
             <Link to={{ pathname: `/detail/${item.jpTitle[0]}`, state: item }}>
@@ -70,26 +46,24 @@ const CardList = (props) => {
       </div>
       <div className="mobile-invisible" style={{ textAlign: 'center', margin: '20px auto' }}>
         <Pagination
-          current={page}
-          pageSize={pageSize}
+          current={props.page || 1}
+          pageSize={props.pageSize || 16}
           defaultPageSize={16}
           pageSizeOptions={[8, 16, 24, 30]}
-          total={total}
-          hideOnSinglePage
+          total={props.total || 0}
           showSizeChanger
-          showTotal={() => `Total ${total}`}
-          onChange={(current, size) => changePage(current, size)}
-          onShowSizeChange={(current, size) => changePage(1, size)}
+          showTotal={() => `Total ${props.total}`}
+          onChange={(current, size) => props.changePage(current, size)}
+          onShowSizeChange={(current, size) => props.changePage(1, size)}
         />
       </div>
       <div className="screen-invisible" style={{ textAlign: 'center', margin: '10px auto' }}>
         <Pagination
-          current={page}
-          pageSize={pageSize}
+          current={props.page}
+          pageSize={props.pageSize}
           simple
-          total={total}
-          hideOnSinglePage
-          onChange={(current, size) => changePage(current, size)}
+          total={props.total}
+          onChange={(current, size) => props.changePage(current, size)}
         />
       </div>
     </>

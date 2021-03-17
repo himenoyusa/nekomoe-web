@@ -14,7 +14,7 @@ import './index.scss';
 const Header = (props) => {
   const [{ lang, theme }, { changeLang, changeTheme }] = useGlobal();
   const [showNav, setShowNav] = useState(false);
-  const [searchKey, setSearchKey] = useState(false);
+  const [searchKey, setSearchKey] = useState('');
   const [backgroundColor, setBackgroundColor] = useState('inherit');
 
   // 监听页面滚动，改变头部背景色
@@ -156,6 +156,9 @@ const Header = (props) => {
           <MenuList mode="inline" />
         </div>
       </Drawer>
+      <div className="history-back" onClick={() => props.history.goBack()}>
+        <css-icon class="icon-arrow-left" />
+      </div>
     </>
   );
 };

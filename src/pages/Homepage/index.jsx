@@ -18,7 +18,9 @@ const Homepage = (props) => {
   };
 
   return (
-    <div className={`${theme}-theme home-background`} style={backgroundStyle}>
+    <div className={`${theme}-theme`}>
+      <div className="home-background" style={backgroundStyle} />
+      <div className="home-gap" />
       <Header history={props.history} />
       <div className="homepage">
         {homepageRouter.map((each) => (

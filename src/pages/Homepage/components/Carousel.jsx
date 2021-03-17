@@ -65,7 +65,7 @@ const Carousel = (props) => {
           </div>
         }
         onCancel={() => setVisible(false)}
-        width="95%"
+        width="auto"
       >
         <img src={previewImg} alt="" style={{ maxHeight: '90vh', maxWidth: '100%' }} />
       </Modal>

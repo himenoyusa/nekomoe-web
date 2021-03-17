@@ -54,8 +54,8 @@ const MenuList = (props) => {
     return (
       <>
         <Menu.Item key="homepage">
-          {lang.homepage}
           <css-icon class="icon-bookmark" />
+          {lang.homepage}
         </Menu.Item>
         <Menu.SubMenu
           title={
