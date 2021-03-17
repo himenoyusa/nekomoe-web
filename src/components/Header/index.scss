@@ -1,22 +1,15 @@
 @import '../../public';
 
 header {
-  @media (min-width: $mediaMinWidth) {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: $headerHeight;
-    z-index: 5;
-    background-color: inherit;
-    box-shadow: 0 0 5px #222;
-    transition: background-color $animationSpeed;
-  }
-  @media (max-width: $mediaMaxWidth) {
-    width: 100vw;
-    height: $headerHeight;
-    background-color: inherit;
-  }
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: $headerHeight;
+  z-index: 5;
+  background-color: inherit;
+  box-shadow: 0 0 5px #222;
+  transition: background-color $animationSpeed;
 
   .header-body {
     margin: 0 auto;
@@ -69,33 +62,13 @@ header {
         }
       }
     }
-    @media (min-width: $mediaMinWidth) {
-      .header-mobile {
-        display: none;
-      }
-    }
-    @media (max-width: $mediaMaxWidth) {
-      .header-screen {
-        display: none;
-      }
-      .header-mobile {
-        margin-right: 0;
-      }
+    // 移动端按钮靠右
+    .header-button-group.screen-invisible {
+      margin-right: 0;
     }
   }
 }
 
-.mobile-navbar {
-  max-height: 0;
-  overflow-y: hidden;
-  background-color: inherit;
-  transition: border-top $animationSpeed, max-height $animationSpeed;
-
-  .mobile-navbar-item {
-    padding: 5px;
-  }
-}
-
-.mobile-navbar-show {
-  max-height: 100px;
+.mobile-navbar-item {
+  text-align: center;
 }

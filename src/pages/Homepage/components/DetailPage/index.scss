@@ -1,0 +1,44 @@
+@import '../../../../public';
+
+.detail-content {
+  margin-bottom: $footerHeight;
+  padding: 5px;
+  overflow: hidden;
+
+  // 引入跑马灯组件样式
+  @import '~react-image-gallery/styles/scss/image-gallery.scss';
+  .image-gallery-image {
+    min-height: 300px;
+    @media (min-width: $mediaMinWidth) {
+      height: calc(100vh - #{$headerHeight + 10px}) !important;
+      max-height: 800px;
+    }
+    @media (max-width: $mediaMaxWidth) {
+      height: 60vh !important;
+    }
+  }
+
+  @media (min-width: $mediaMinWidth) {
+    .left-carousel {
+      float: left;
+      clear: both;
+      width: 50%;
+    }
+    .right-message-box {
+      display: inline-block;
+      width: 50%;
+      padding: 10px 20px;
+      vertical-align: top;
+    }
+  }
+  @media (max-width: $mediaMaxWidth) {
+    padding: 0;
+    .left-carousel {
+      display: block;
+    }
+    .right-message-box {
+      display: block;
+      padding: 10px 20px;
+    }
+  }
+}

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import myAxios from 'utils/myAxios';
 import useGlobal from '../../../../myHooks/useGlobal';
 
+import MenuList from '../../../../components/MenuList';
 import CardList from '../../../../components/CardList';
 import Carousel from '../Carousel';
 import './index.scss';
@@ -45,10 +46,11 @@ const MainPage = () => {
 
   return (
     <>
-      <div style={borderTop}>
+      <div className="carousel-wrap" style={borderTop}>
         <Carousel />
       </div>
       <div className="content" style={borderTop}>
+        <MenuList className="mobile-invisible" />
         <CardList data={tempList} total={total} changePage={changePage} />
       </div>
     </>

@@ -1,32 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Select, Switch, Input } from 'antd';
+import { Select, Switch, Input, Drawer } from 'antd';
 import { debounce } from 'utils/toolFunction';
 import useGlobal from '../../myHooks/useGlobal';
+
+import MenuList from '../MenuList';
 import logoWhite from '../../images/logo-white.png';
 import logoDark from '../../images/logo-dark.png';
 import titleDark from '../../images/title-dark.png';
 import titleWhite from '../../images/title-white.png';
 import './index.scss';
 
-const Header = () => {
+const Header = (props) => {
   const [{ lang, theme }, { changeLang, changeTheme }] = useGlobal();
   const [showNav, setShowNav] = useState(false);
+  const [searchKey, setSearchKey] = useState(false);
   const [backgroundColor, setBackgroundColor] = useState('inherit');
 
-  // 监听页面滚动，改变头部背景色（仅适用于桌面端）
-  // TODO: 移动端改成页头自适应
+  // 监听页面滚动，改变头部背景色
   useEffect(() => {
-    if (window.innerWidth > 768) {
-      const func = debounce(() => {
-        if (window.scrollY > 100) {
-          setBackgroundColor(theme === 'white' ? 'rgba(255, 255, 255, 0.5)' : 'rgba(0, 0, 0, 0.5)');
-        } else {
-          setBackgroundColor('inherit');
-        }
-      }, 100);
-      window.onscroll = func;
-    }
+    const func = debounce(() => {
+      if (window.scrollY > 100) {
+        setBackgroundColor(theme === 'white' ? 'rgba(255, 255, 255, 0.5)' : 'rgba(0, 0, 0, 0.5)');
+      } else {
+        setBackgroundColor('inherit');
+      }
+    }, 100);
+    window.onscroll = func;
     return () => {
       window.onscroll = null;
     };
@@ -42,6 +42,14 @@ const Header = () => {
 
   const switchNav = () => {
     setShowNav(!showNav);
+  };
+
+  const onSearch = (keyword) => {
+    if (!keyword) {
+      return;
+    }
+    props.history.push(`/search/${keyword}`);
+    setSearchKey('');
   };
 
   const langOption = () => {
@@ -69,9 +77,6 @@ const Header = () => {
   const borderLeft = {
     borderLeft: `1px solid ${theme === 'white' ? '#ddd' : '#444'}`,
   };
-  const borderTop = {
-    borderTop: `1px solid ${theme === 'white' ? '#ddd' : '#444'}`,
-  };
 
   return (
     <>
@@ -83,11 +88,14 @@ const Header = () => {
           </Link>
           <span className="mobile-invisible">
             <Input.Search
+              value={searchKey}
               style={{ width: 200, marginTop: 15, marginLeft: 10 }}
               placeholder={lang.searchPlaceholder}
+              onChange={(e) => setSearchKey(e.target.value)}
+              onSearch={(val) => onSearch(val)}
             />
           </span>
-          <div className="header-button-group header-screen">
+          <div className="header-button-group mobile-invisible">
             <Switch
               style={{ marginRight: 10 }}
               checked={theme === 'white'}
@@ -107,33 +115,47 @@ const Header = () => {
           <div className="header-button-group screen-invisible">
             <div className="header-button-switch" style={borderLeft} onClick={() => switchNav()}>
               <div className={showNav ? ' switch-on' : ''}>
-                <css-icon class="icon-arrow-left" />
+                <css-icon class="icon-menu" />
               </div>
             </div>
           </div>
         </div>
       </header>
-      <div className={`mobile-navbar${showNav ? ' mobile-navbar-show' : ''}`}>
-        <div className="mobile-navbar-item" style={borderTop}>
-          <div style={{ textAlign: 'right' }}>
-            <Switch
-              style={{ marginRight: 10 }}
-              checked={theme === 'white'}
-              checkedChildren="☀"
-              unCheckedChildren="🌙"
-              onChange={(val) => switchTheme(val)}
-            />
-            <Select
-              style={{ width: 85, textAlign: 'left' }}
-              value={lang.lang}
-              getPopupContainer={() => document.getElementsByClassName('header-body')[0]}
-              onChange={(val) => changeLang(val)}
-            >
-              {langOption()}
-            </Select>
-          </div>
+      <Drawer
+        title={lang.option}
+        width="60vw"
+        getContainer={false}
+        placement="right"
+        bodyStyle={{ padding: 5 }}
+        drawerStyle={{ backgroundColor: 'aaa' }}
+        closable
+        onClose={() => setShowNav(false)}
+        visible={showNav}
+      >
+        <div className="mobile-navbar-item">
+          <Switch
+            style={{ marginRight: 10 }}
+            checked={theme === 'white'}
+            checkedChildren="☀"
+            unCheckedChildren="🌙"
+            onChange={(val) => switchTheme(val)}
+          />
+          <Select
+            style={{ width: 85, textAlign: 'left' }}
+            value={lang.lang}
+            getPopupContainer={(e) => e}
+            onChange={(val) => changeLang(val)}
+          >
+            {langOption()}
+          </Select>
+          <Input.Search
+            style={{ width: '80%', marginTop: 15, marginLeft: 10 }}
+            placeholder={lang.searchPlaceholder}
+            onSearch={(val) => onSearch(val)}
+          />
+          <MenuList mode="inline" />
         </div>
-      </div>
+      </Drawer>
     </>
   );
 };

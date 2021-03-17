@@ -1,14 +1,57 @@
 @import './public';
 
-$darkAntdBgColorActive: #e6f7ff;
-
 // 覆盖 antd 样式
+// menu
+.ant-menu {
+  background: transparent;
+}
+.ant-menu-horizontal {
+  border-bottom: 1px solid $borderColorDark;
+}
+.ant-menu-inline {
+  border-right: none;
+}
+.ant-menu-item {
+  color: $darkAntdFontColor;
+}
+.ant-menu-submenu-title {
+  color: $darkAntdFontColor;
+}
+.ant-menu-submenu-popup > .ant-menu {
+  background-color: $darkAntdBackgroundColor !important;
+}
+.ant-menu-submenu {
+  .ant-menu-item-selected {
+    background-color: $darkAntdBgColorActive !important;
+    color: $darkAntdColorSelect !important;
+  }
+  .ant-menu-item-active {
+    color: $darkAntdBackgroundColor !important;
+    background-color: $darkAntdBgColorActive !important;
+  }
+}
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+  background-color: $darkAntdBgColorActive !important;
+  color: $darkAntdColorSelect !important;
+}
+
+// modal
+.ant-modal {
+  border: 1px solid $borderColorDark;
+}
+.ant-modal-content {
+  background-color: $backgroundColorDark !important;
+}
+.ant-modal-close-icon {
+  color: $darkAntdFontColor;
+}
+
 // 下拉框
 .ant-select {
-  color: inherit !important;
+  color: $darkAntdFontColor !important;
 }
 .ant-select-selector {
-  background-color: inherit !important;
+  background-color: $darkAntdBackgroundColor !important;
 }
 .ant-select-selection-search {
   color: $darkAntdFontColor !important;
@@ -25,11 +68,29 @@ $darkAntdBgColorActive: #e6f7ff;
 }
 .ant-select-item-option-active {
   color: $darkAntdBackgroundColor !important;
-  background-color: $darkAntdFontColor !important;
+  background-color: $darkAntdBgColorActive !important;
 }
 .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
   background-color: $darkAntdBgColorActive !important;
-  color: $darkAntdBackgroundColor !important;
+  color: $darkAntdColorSelect !important;
+}
+
+// 抽屉
+.ant-drawer-content {
+  background-color: transparent !important;
+}
+.ant-drawer-wrapper-body {
+  background-color: $backgroundColorDark !important;
+}
+.ant-drawer-header {
+  background: transparent !important;
+  border-bottom: 1px solid $borderColorDark;
+}
+.ant-drawer-title {
+  color: $darkAntdFontColor !important;
+}
+.ant-drawer-close {
+  color: $darkAntdFontColor !important;
 }
 
 // 开关
@@ -48,7 +109,6 @@ $darkAntdBgColorActive: #e6f7ff;
 .ant-input-search-button {
   color: $darkAntdFontColor !important;
 }
-
 .ant-btn {
   background-color: $darkAntdBackgroundColor !important;
 }
@@ -79,4 +139,11 @@ $darkAntdBgColorActive: #e6f7ff;
     background-color: $darkAntdBackgroundColor !important;
     color: $darkAntdFontColor !important;
   }
+}
+
+// 描述
+.ant-descriptions-title,
+.ant-descriptions-item-label,
+.ant-descriptions-item-content {
+  color: $darkAntdFontColor !important;
 }

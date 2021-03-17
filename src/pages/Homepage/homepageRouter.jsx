@@ -8,6 +8,10 @@ const DetailPage = loadable(() => import('./components/DetailPage'), {
   fallback: null,
 });
 
+const SearchPage = loadable(() => import('./components/SearchPage'), {
+  fallback: null,
+});
+
 const homepageRouter = [
   {
     path: '/',
@@ -16,6 +20,10 @@ const homepageRouter = [
   {
     path: '/detail/:name',
     component: DetailPage,
+  },
+  {
+    path: '/search/:keyword',
+    component: SearchPage,
   },
 ];
 

@@ -6,11 +6,11 @@ import useGlobal from '../../myHooks/useGlobal';
 
 import './index.scss';
 
-const CardList = () => {
+const CardList = (props) => {
   const [{ lang, theme }] = useGlobal();
   const [list, setList] = useState([]);
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(16);
+  const [pageSize, setPageSize] = useState(4);
   const [total, setTotal] = useState(0);
 
   useEffect(() => {
@@ -37,7 +37,7 @@ const CardList = () => {
   };
 
   // 前端伪分页
-  const tempList = list.slice((page - 1) * pageSize, page * pageSize);
+  const tempList = props.data || list.slice((page - 1) * pageSize, page * pageSize);
 
   return (
     <>
@@ -47,12 +47,12 @@ const CardList = () => {
             {/* 跳转参数 state 暂未使用 */}
             <Link to={{ pathname: `/detail/${item.jpTitle[0]}`, state: item }}>
               <div className="anime-card-img">
-                <div style={{ backgroundImage: `url(${item.posterUrl})` }} />
+                <div style={{ backgroundImage: `url(${item.posterUrl[0]})` }} />
               </div>
             </Link>
             <Tooltip
               placement="topLeft"
-              color={theme === 'white' ? '' : '#2db7f5'}
+              color={theme === 'white' ? '#1890ff' : ''}
               title={item[`${lang.lang}Title`][0]}
             >
               <div className="anime-card-title">{item[`${lang.lang}Title`][0]}</div>
@@ -85,10 +85,10 @@ const CardList = () => {
       <div className="screen-invisible" style={{ textAlign: 'center', margin: '10px auto' }}>
         <Pagination
           current={page}
+          pageSize={pageSize}
           simple
           total={total}
           hideOnSinglePage
-          showTotal={() => `Total ${total}`}
           onChange={(current, size) => changePage(current, size)}
         />
       </div>

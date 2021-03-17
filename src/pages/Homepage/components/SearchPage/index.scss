@@ -1,0 +1,31 @@
+@import '../../../../public';
+
+.search-content {
+  padding: 10px;
+  margin-bottom: $footerHeight;
+
+  .search-column {
+    padding-top: 20px;
+    padding-bottom: 10px;
+    @media (min-width: $mediaMinWidth) {
+      padding-right: $headerHeight;
+    }
+    text-align: center;
+
+    .search-logo {
+      display: inline-block;
+      height: $headerHeight + 20px;
+      width: $headerHeight + 20px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      vertical-align: middle;
+      transition: background-image $animationSpeed;
+    }
+    .search-input {
+      .ant-input-group-wrapper {
+        vertical-align: middle;
+      }
+    }
+  }
+}

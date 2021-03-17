@@ -6,13 +6,11 @@ import homepageRouter from './homepageRouter';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 
-import './index.scss';
-import '../../theme.scss';
-
 import backgroundWhite from '../../images/wp_white.webp';
 import backgroundDark from '../../images/wp_dark.webp';
+import './index.scss';
 
-const Homepage = () => {
+const Homepage = (props) => {
   const [{ lang, theme }] = useGlobal();
 
   const backgroundStyle = {
@@ -21,7 +19,7 @@ const Homepage = () => {
 
   return (
     <div className={`${theme}-theme home-background`} style={backgroundStyle}>
-      <Header />
+      <Header history={props.history} />
       <div className="homepage">
         {homepageRouter.map((each) => (
           <Route path={each.path} component={each.component} exact key={each.path} />
