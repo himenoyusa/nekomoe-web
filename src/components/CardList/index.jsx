@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
 import { Tooltip, Pagination } from 'antd';
 import useGlobal from '../../myHooks/useGlobal';
@@ -12,7 +12,7 @@ import './index.scss';
  * @param {number} total 总数
  * @param {array} data 数据数组
  */
-const CardList = (props) => {
+const CardList = memo((props) => {
   const [{ lang, theme }] = useGlobal();
 
   return (
@@ -23,7 +23,7 @@ const CardList = (props) => {
             {/* 跳转参数 state 暂未使用 */}
             <Link to={{ pathname: `/detail/${item.jpTitle[0]}`, state: item }}>
               <div className="anime-card-img">
-                <div style={{ backgroundImage: `url(${item.posterUrl[0]})` }} />
+                <div style={{ backgroundImage: `url(${item.thumbUrl})` }} />
               </div>
             </Link>
             <Tooltip
@@ -68,6 +68,6 @@ const CardList = (props) => {
       </div>
     </>
   );
-};
+});
 
 export default CardList;

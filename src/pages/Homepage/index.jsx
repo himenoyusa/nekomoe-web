@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Route } from 'react-router-dom';
 import useGlobal from '../../myHooks/useGlobal';
 
@@ -10,7 +10,7 @@ import backgroundWhite from '../../images/wp_white.webp';
 import backgroundDark from '../../images/wp_dark.webp';
 import './index.scss';
 
-const Homepage = (props) => {
+const Homepage = memo((props) => {
   const [{ lang, theme }] = useGlobal();
 
   const backgroundStyle = {
@@ -34,6 +34,6 @@ const Homepage = (props) => {
       </div>
     </div>
   );
-};
+});
 
 export default Homepage;

@@ -8,13 +8,13 @@
   // 引入跑马灯组件样式
   @import '~react-image-gallery/styles/scss/image-gallery.scss';
   .image-gallery-image {
-    min-height: 300px;
+    min-height: 200px;
     @media (min-width: $mediaMinWidth) {
-      height: calc(100vh - #{$headerHeight + 10px}) !important;
+      height: calc(100vh - #{$headerHeight + 20px + $footerHeight}) !important;
       max-height: 800px;
     }
     @media (max-width: $mediaMaxWidth) {
-      height: 60vh !important;
+      max-height: 90vh;
     }
   }
 
@@ -32,7 +32,7 @@
     }
   }
   @media (max-width: $mediaMaxWidth) {
-    padding: 0;
+    padding: 2px;
     .left-carousel {
       display: block;
     }

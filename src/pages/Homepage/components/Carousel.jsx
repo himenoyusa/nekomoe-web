@@ -26,8 +26,10 @@ const Carousel = (props) => {
   }, [props.imageList]);
 
   const openPreview = (e) => {
-    setPreviewImg(e.target?.currentSrc ?? '');
-    setVisible(true);
+    if (e.target.currentSrc) {
+      setPreviewImg(e.target?.currentSrc ?? '');
+      setVisible(true);
+    }
   };
 
   return (
@@ -36,7 +38,7 @@ const Carousel = (props) => {
         items={imageList}
         onErrorImageURL="images/2021-01/Gekidol_poster.jpg"
         onClick={(e) => openPreview(e)}
-        slideInterval={10000}
+        slideInterval={30000}
         lazyLoad
         showThumbnails={false}
         showFullscreenButton={false}

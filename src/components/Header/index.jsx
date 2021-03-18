@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { memo, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Select, Switch, Input, Drawer } from 'antd';
 import { debounce } from 'utils/toolFunction';
 import useGlobal from '../../myHooks/useGlobal';
 
 import MenuList from '../MenuList';
-import logoWhite from '../../images/logo-white.png';
-import logoDark from '../../images/logo-dark.png';
-import titleDark from '../../images/title-dark.png';
-import titleWhite from '../../images/title-white.png';
+import logoWhite from '../../images/logo-white.webp';
+import logoDark from '../../images/logo-dark.webp';
+import titleDark from '../../images/title-dark.webp';
+import titleWhite from '../../images/title-white.webp';
 import './index.scss';
 
-const Header = (props) => {
+const Header = memo((props) => {
   const [{ lang, theme }, { changeLang, changeTheme }] = useGlobal();
   const [showNav, setShowNav] = useState(false);
   const [searchKey, setSearchKey] = useState('');
@@ -161,6 +161,6 @@ const Header = (props) => {
       </div>
     </>
   );
-};
+});
 
 export default Header;

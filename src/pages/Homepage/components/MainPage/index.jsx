@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { memo, useState, useEffect } from 'react';
 import myAxios from 'utils/myAxios';
 import useGlobal from '../../../../myHooks/useGlobal';
 
@@ -7,7 +7,7 @@ import CardList from '../../../../components/CardList';
 import Carousel from '../Carousel';
 import './index.scss';
 
-const MainPage = () => {
+const MainPage = memo(() => {
   const [{ lang, theme }] = useGlobal();
   const [list, setList] = useState([]);
   const [page, setPage] = useState(1);
@@ -61,6 +61,6 @@ const MainPage = () => {
       </div>
     </>
   );
-};
+});
 
 export default MainPage;

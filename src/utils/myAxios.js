@@ -11,7 +11,7 @@ if (token) {
 }
 
 const myAxios = axios.create({
-  baseURL: 'https://sena.moe',
+  baseURL: 'http://localhost:3000',
   timeout: 1000000,
   headers,
 });

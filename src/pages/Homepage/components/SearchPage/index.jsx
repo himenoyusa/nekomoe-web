@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { memo, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Input } from 'antd';
 import myAxios from 'utils/myAxios';
 import useGlobal from '../../../../myHooks/useGlobal';
 
 import CardList from '../../../../components/CardList';
-import logoWhite from '../../../../images/logo-white.png';
-import logoDark from '../../../../images/logo-dark.png';
+import logoWhite from '../../../../images/logo-white.webp';
+import logoDark from '../../../../images/logo-dark.webp';
 import './index.scss';
 
-const SearchPage = (props) => {
+const SearchPage = memo((props) => {
   const [{ lang, theme }] = useGlobal();
   const { keyword } = useParams();
   const [list, setList] = useState([]);
@@ -96,6 +96,6 @@ const SearchPage = (props) => {
       />
     </div>
   );
-};
+});
 
 export default SearchPage;

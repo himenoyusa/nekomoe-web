@@ -1,10 +1,10 @@
-import React from 'react';
-import cupWhite from '../../images/cup-white.png';
-import cupDark from '../../images/cup-dark.png';
+import React, { memo } from 'react';
+import cupWhite from '../../images/cup-white.webp';
+import cupDark from '../../images/cup-dark.webp';
 import useGlobal from '../../myHooks/useGlobal';
 import './index.scss';
 
-const Footer = () => {
+const Footer = memo(() => {
   const [{ theme, lang }] = useGlobal();
 
   const scrollTop = () => {
@@ -28,6 +28,6 @@ const Footer = () => {
       <div className="footer-logo" style={logoStyle} onClick={() => scrollTop()} />
     </footer>
   );
-};
+});
 
 export default Footer;

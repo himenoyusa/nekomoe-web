@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { memo, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, Badge } from 'antd';
 import useGlobal from '../../myHooks/useGlobal';
@@ -20,7 +20,7 @@ const colorList = [
   'lime',
 ];
 
-const MenuList = (props) => {
+const MenuList = memo((props) => {
   const [{ lang, theme }] = useGlobal();
   const [menuKey, setMenuKey] = useState(['homepage']);
 
@@ -113,6 +113,6 @@ const MenuList = (props) => {
       </div>
     </>
   );
-};
+});
 
 export default MenuList;

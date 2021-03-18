@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { memo, useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Descriptions } from 'antd';
 import myAxios from 'utils/myAxios';
@@ -7,7 +7,7 @@ import useGlobal from '../../../../myHooks/useGlobal';
 import Carousel from '../Carousel';
 import './index.scss';
 
-const DetailPage = () => {
+const DetailPage = memo(() => {
   const [{ lang, theme }] = useGlobal();
   const { name } = useParams(); // 获取路由 params
   const [details, setDetails] = useState({});
@@ -115,13 +115,13 @@ const DetailPage = () => {
           </Descriptions.Item>
         </Descriptions>
       </div>
-      <div className="right-message-box">
+      {/* <div className="right-message-box">
         <Descriptions column={1} title={lang.staff}>
           {renderStaff()}
         </Descriptions>
-      </div>
+      </div> */}
     </div>
   );
-};
+});
 
 export default DetailPage;
