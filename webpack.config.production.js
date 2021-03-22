@@ -33,6 +33,10 @@ module.exports = {
         use: [
           {
             loader: MiniExtractPlugin.loader,
+            options: {
+              hmr: process.env.NODE_ENV === 'development',
+              reloadAll: true,
+            },
           },
           'css-loader',
           'sass-loader',

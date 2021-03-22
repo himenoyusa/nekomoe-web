@@ -7,7 +7,7 @@ import useGlobal from '../../../../myHooks/useGlobal';
 import Carousel from '../Carousel';
 import './index.scss';
 
-const DetailPage = memo(() => {
+const DetailPage = memo((props) => {
   const [{ lang, theme }] = useGlobal();
   const { name } = useParams(); // 获取路由 params
   const [details, setDetails] = useState({});
@@ -70,7 +70,7 @@ const DetailPage = memo(() => {
   };
 
   return (
-    <div className="detail-content">
+    <div className="detail-content" style={{ display: props.match ? 'block' : 'none' }}>
       <div className="left-carousel mobile-invisible" style={borderRight}>
         <Carousel imageList={imageList} />
       </div>

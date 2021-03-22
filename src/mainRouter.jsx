@@ -10,12 +10,12 @@ const Admin = loadable(() => import('./pages/Admin'), {
 
 const mainRouter = [
   {
-    path: '/',
-    component: Homepage,
-  },
-  {
     path: '/admin',
     component: Admin,
+  },
+  {
+    path: '/',
+    component: Homepage,
   },
   {
     path: '*',

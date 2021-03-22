@@ -10,7 +10,7 @@ module.exports = {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
   },
-  devtool: 'eval-cheap-module-source-map',
+  devtool: 'cheap-module-eval-source-map',
   devServer: {
     contentBase: './public',
     // host: '0.0.0.0', // ip 访问
@@ -21,7 +21,7 @@ module.exports = {
     historyApiFallback: true,
     // hotOnly: true,
   },
-  target: 'web', // webpack5.x 加上之後熱更新才有效果
+  // target: 'web', // webpack5.x 加上之後熱更新才有效果
   module: {
     rules: [
       {
@@ -34,6 +34,10 @@ module.exports = {
         use: [
           {
             loader: MiniExtractPlugin.loader,
+            options: {
+              hmr: process.env.NODE_ENV === 'development',
+              reloadAll: true,
+            },
           },
           'css-loader',
           'sass-loader',

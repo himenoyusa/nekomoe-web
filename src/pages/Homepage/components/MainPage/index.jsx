@@ -7,7 +7,7 @@ import CardList from '../../../../components/CardList';
 import Carousel from '../Carousel';
 import './index.scss';
 
-const MainPage = memo(() => {
+const MainPage = memo((props) => {
   const [{ lang, theme }] = useGlobal();
   const [list, setList] = useState([]);
   const [page, setPage] = useState(1);
@@ -39,6 +39,7 @@ const MainPage = memo(() => {
 
   const borderTop = {
     borderTop: `1px solid ${theme === 'white' ? '#ddd' : '#444'}`,
+    display: props.match ? 'block' : 'none',
   };
 
   // 前端伪分页

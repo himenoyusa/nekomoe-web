@@ -41,4 +41,20 @@ const setTheme = (theme) => {
   window.localStorage.setItem('theme', theme);
 };
 
-export { getLang, setLang, getTheme, setTheme };
+/**
+ * @description 获取当前用户信息
+ */
+const getToken = () => {
+  const defaultTheme = window.localStorage.getItem('token') || '';
+  return defaultTheme;
+};
+
+/**
+ * @description 设置当前用户
+ * @param {Object} token 存有用户信息的对象
+ */
+const setToken = (token) => {
+  window.localStorage.setItem('token', token);
+};
+
+export { getLang, setLang, getTheme, setTheme, getToken, setToken };

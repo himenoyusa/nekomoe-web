@@ -1,5 +1,5 @@
 import React, { memo, useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { Input } from 'antd';
 import myAxios from 'utils/myAxios';
 import useGlobal from '../../../../myHooks/useGlobal';
@@ -12,6 +12,7 @@ import './index.scss';
 const SearchPage = memo((props) => {
   const [{ lang, theme }] = useGlobal();
   const { keyword } = useParams();
+  const history = useHistory();
   const [list, setList] = useState([]);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(16);
@@ -57,12 +58,13 @@ const SearchPage = memo((props) => {
 
   const onSearch = (key) => {
     if (key !== '') {
-      props.history.push(`/search/${key}`);
+      history.push(`/search/${key}`);
     }
   };
 
   const borderTop = {
     borderTop: `1px solid ${theme === 'white' ? '#ddd' : '#444'}`,
+    display: props.match ? 'block' : 'none',
   };
 
   const logoStyle = {

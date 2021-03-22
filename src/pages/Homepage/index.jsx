@@ -24,7 +24,13 @@ const Homepage = memo((props) => {
       <Header history={props.history} />
       <div className="homepage">
         {homepageRouter.map((each) => (
-          <Route path={each.path} component={each.component} exact key={each.path} />
+          <Route
+            path={each.path}
+            // eslint-disable-next-line react/no-children-prop
+            children={({ match }) => each.component(match)}
+            key={each.path}
+            exact
+          />
         ))}
         <Footer />
         <div style={{ display: 'none' }}>

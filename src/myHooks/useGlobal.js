@@ -1,6 +1,6 @@
 import React from 'react';
 import globalHook from 'use-global-hook';
-import { getLang, setLang, getTheme, setTheme } from 'utils/localStorage';
+import { getLang, setLang, getTheme, setTheme, getToken, setToken } from 'utils/localStorage';
 
 /**
  * @param {object} lang 语言词组列表
@@ -9,6 +9,7 @@ import { getLang, setLang, getTheme, setTheme } from 'utils/localStorage';
 const initialState = {
   lang: getLang(),
   theme: getTheme(),
+  token: getToken(),
 };
 
 const actions = {
@@ -19,6 +20,10 @@ const actions = {
   changeLang: (store, lang) => {
     const keyList = setLang(lang);
     store.setState({ lang: keyList });
+  },
+  changeUser: (store, token) => {
+    setToken(token);
+    store.setState({ token });
   },
 };
 
