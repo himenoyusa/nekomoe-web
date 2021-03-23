@@ -9,10 +9,10 @@ const Carousel = (props) => {
   const [previewImg, setPreviewImg] = useState('');
 
   useEffect(() => {
-    if (props.imageList && props.imageList.length > 0) {
-      setImageList(props.imageList);
-    }
-    if (!Array.isArray(props.imageList)) {
+    if (props.imageList) {
+      const list = props.imageList;
+      setImageList(list);
+    } else {
       myAxios('testData/imageList.json')
         .then((res) => {
           if (res.status === 200) {

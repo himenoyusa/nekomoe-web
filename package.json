@@ -1,8 +1,8 @@
 {
   "name": "nekomoe-react",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
-  "description": "",
+  "description": "此为用于录入数据的测试版本",
   "scripts": {
     "start": "webpack-dev-server",
     "build": "webpack --config ./webpack.config.production.js"

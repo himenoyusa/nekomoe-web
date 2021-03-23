@@ -19,9 +19,9 @@ const CardList = memo((props) => {
     <>
       <div className="flex-box">
         {props.data?.map((item) => (
-          <div className="flex-item anime-card" key={item.jpTitle[0]}>
+          <div className="flex-item anime-card" key={item.jpTitle}>
             {/* 跳转参数 state 暂未使用 */}
-            <Link to={{ pathname: `/detail/${item.jpTitle[0]}`, state: item }}>
+            <Link to={{ pathname: `/detail/${item.jpTitle}`, state: item }}>
               <div className="anime-card-img">
                 <div style={{ backgroundImage: `url(${item.thumbUrl})` }} />
               </div>
@@ -29,9 +29,12 @@ const CardList = memo((props) => {
             <Tooltip
               placement="topLeft"
               color={theme === 'white' ? '#1890ff' : ''}
-              title={item[`${lang.lang}Title`][0]}
+              title={item[`${lang.lang}Title`]}
             >
-              <div className="anime-card-title">{item[`${lang.lang}Title`][0]}</div>
+              <div className="anime-card-title">
+                {item.coSub ? `【${lang.co}】` : ''}
+                {item[`${lang.lang}Title`]}
+              </div>
             </Tooltip>
             <div className="anime-card-note">
               <span>

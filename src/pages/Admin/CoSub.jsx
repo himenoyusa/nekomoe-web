@@ -4,15 +4,9 @@ import axios from 'axios';
 
 import useGlobal from '../../myHooks/useGlobal';
 
-const data = {
-  subName: '千夏',
-  subNameEng: 'Airota',
-  subType: 'sub',
-  subUrl: '',
-};
 const CoSub = () => {
   const [{ token }] = useGlobal();
-  const [dataSources, setDataSources] = useState([data]);
+  const [dataSources, setDataSources] = useState([]);
 
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(15);
@@ -20,23 +14,25 @@ const CoSub = () => {
   const [loading, setLoading] = useState(false);
   const [autoSaveTime, setAutoSaveTime] = useState('');
 
-  /**
-   * @description 查询列表
-   * @param {boolean} search 是否筛选
-   */
-  const getData = (search) => {
-    let params = null;
-    if (search) {
-      params = { type, year, month };
-    }
-    axios('', { params });
+  const getData = () => {
+    axios('testData/subList.json').then((res) => {
+      if (res.status === 200) {
+        setDataSources(res.data);
+        setTotal(res.data.length);
+      } else {
+        setDataSources([]);
+        setTotal(0);
+      }
+    });
   };
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   const add = () => {
     const newItem = {
-      type,
-      year,
-      month,
+      key: Date.now(),
     };
     dataSources.unshift(newItem);
     setDataSources([...dataSources]);
@@ -52,8 +48,6 @@ const CoSub = () => {
     save();
     setPage(1);
   };
-
-  useEffect(() => {});
 
   const columns = [
     {

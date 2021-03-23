@@ -33,16 +33,24 @@ const Admin = () => {
   ];
 
   return (
-    <Layout style={{ width: '100vw', height: '100vh' }}>
-      <Layout.Header style={{ borderBottom: '1px solid #ccc' }}>
+    <div style={{ width: '100vw', height: '100vh', overflow: 'hidden' }}>
+      <div
+        style={{
+          height: '64px',
+          lineHeight: '64px',
+          paddingLeft: '24px',
+          backgroundColor: '#001529',
+          borderBottom: '1px solid #ccc',
+        }}
+      >
         <Link to="/">
           <Button type="primary">返回首页</Button>
         </Link>
         <Button style={{ marginLeft: 10 }} type="primary" onClick={() => logout()}>
           注销
         </Button>
-      </Layout.Header>
-      <Layout>
+      </div>
+      <Layout style={{ height: window.innerHeight - 64 }}>
         <Layout.Sider>
           <Menu
             onClick={(e) => setMenuKey(e.key)}
@@ -60,7 +68,7 @@ const Admin = () => {
           {menuKey === 'coSub' && <CoSub />}
         </Layout.Content>
       </Layout>
-    </Layout>
+    </div>
   );
 };
 

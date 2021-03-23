@@ -1,35 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, memo } from 'react';
 import { Form, Table, Select, Input, Button, Divider, Popconfirm } from 'antd';
 import axios from 'axios';
 
 import useGlobal from '../../myHooks/useGlobal';
 
-const data = {
-  scTitle: '熊熊勇闯异世界',
-  tcTitle: '',
-  jpTitle: 'くまクマ熊ベアー',
-  officialSite: 'https://kumakumakumabear.com/',
-  year: '2020',
-  month: '10',
-  posterUrl: ['images/2020-10/熊四poster.jpg'],
-  thumbUrl: 'images/2020-10/thumb_熊四poster.webp',
-  status: 'finished',
-  type: 'anime',
-  subType: ['tc', 'sc'],
-  videoType: 'WEB',
-  key: Date.now(),
-};
-const sub = {
-  subName: '千夏',
-  subNameEng: 'Airota',
-  subType: 'sub',
-  subUrl: '',
-};
-
-const ContentTable = () => {
+const ContentTable = memo(() => {
   const [{ token }] = useGlobal();
-  const [subData, setSubData] = useState([sub]);
-  const [dataSources, setDataSources] = useState([data]);
+  const [subData, setSubData] = useState([]);
+  const [dataSources, setDataSources] = useState([]);
   // 新增时默认会添加的参数
   const [type, setType] = useState('');
   const [year, setYear] = useState('');
@@ -41,10 +19,13 @@ const ContentTable = () => {
   const [loading, setLoading] = useState(false);
   const [autoSaveTime, setAutoSaveTime] = useState('');
 
-  // useEffect(() => {
-  //   // axios('URL_getSubData').then((res) => {});
-  //   setSubData([sub]);
-  // });
+  useEffect(() => {
+    axios('testData/subList.json').then((res) => {
+      if (res.status === 200) {
+        setSubData(res.data);
+      }
+    });
+  }, []);
 
   /**
    * @description 查询列表
@@ -55,8 +36,32 @@ const ContentTable = () => {
     if (search) {
       params = { type, year, month };
     }
-    axios('', { params });
+    axios('testData/out.json', { params }).then((res) => {
+      if (res.status === 200) {
+        const data = [];
+        const yearList = Object.keys(res.data);
+        yearList.forEach((y) => {
+          const monthList = Object.keys(res.data[y]);
+          monthList.forEach((m) => {
+            const resultList = res.data[y][m];
+            const mon = m.length === 1 ? `0${m}` : m;
+            resultList.forEach((item) => {
+              data.push({ ...item, year: y, month: mon, key: item.jpTitle });
+            });
+          });
+        });
+        setDataSources(data);
+        setTotal(data.length);
+      } else {
+        setDataSources([]);
+        setTotal(0);
+      }
+    });
   };
+
+  useEffect(() => {
+    getData();
+  }, [page, pageSize, year, month]);
 
   const add = () => {
     const newItem = {
@@ -71,10 +76,21 @@ const ContentTable = () => {
     setDataSources([...dataSources]);
   };
 
+  let tempList = [...dataSources];
+  if (year) {
+    tempList = tempList.filter((item) => item.year === year.toString());
+  }
+  if (month) {
+    tempList = tempList.filter((item) => item.month === month);
+  }
+  // 前端伪分页
+  tempList.slice((page - 1) * pageSize, page * pageSize);
+
   const save = () => {
     setLoading(true);
-    console.log(dataSources);
+    console.log(tempList);
     setLoading(false);
+    setAutoSaveTime(Date.now());
   };
 
   const deleteOne = (index) => {
@@ -90,7 +106,11 @@ const ContentTable = () => {
   const yearSelector = () => {
     const now = new Date();
     const yearNow = now.getFullYear();
-    const yearList = [];
+    const yearList = [
+      <Select.Option value="" key="">
+        全部
+      </Select.Option>,
+    ];
     for (let i = yearNow; i >= 1970; i -= 1) {
       yearList.push(
         <Select.Option value={i} key={i}>
@@ -103,7 +123,11 @@ const ContentTable = () => {
 
   // 月份选择列
   const monthSelector = () => {
-    const monthList = [];
+    const monthList = [
+      <Select.Option value="" key="">
+        全部
+      </Select.Option>,
+    ];
     for (let i = 1; i <= 12; i += 1) {
       let mon = i.toString();
       if (i < 10) {
@@ -119,6 +143,7 @@ const ContentTable = () => {
       title: '日文标题',
       align: 'center',
       dataIndex: 'jpTitle',
+      fixed: 'left',
       width: 150,
       render: (v, r, i) => {
         return (
@@ -249,17 +274,15 @@ const ContentTable = () => {
       title: '海报URL',
       align: 'center',
       dataIndex: 'posterUrl',
-      width: 120,
+      width: 180,
       render: (v, r, i) => {
-        const urlList = v.toString();
         return (
           <Input
             placeholder="多张海报用英文逗号分隔"
-            defaultValue={urlList}
-            title={urlList || '多张海报用英文逗号分隔'}
+            defaultValue={v}
+            title={v || '多张海报用英文逗号分隔'}
             onChange={(e) => {
-              const list = e.target.value.split(',');
-              dataSources[i].posterUrl = list;
+              dataSources[i].posterUrl = e.target.value;
               setDataSources(dataSources);
             }}
           />
@@ -270,7 +293,7 @@ const ContentTable = () => {
       title: '海报缩略图URL',
       align: 'center',
       dataIndex: 'thumbUrl',
-      width: 120,
+      width: 180,
       render: (v, r, i) => {
         return (
           <Input
@@ -341,10 +364,10 @@ const ContentTable = () => {
           <Select
             maxTagCount={2}
             mode="multiple"
-            defaultValue={v}
+            defaultValue={v?.split(',')}
             style={{ width: 200 }}
             onChange={(val) => {
-              dataSources[i].subType = val;
+              dataSources[i].subType = val?.toString();
               setDataSources(dataSources);
             }}
           >
@@ -390,10 +413,10 @@ const ContentTable = () => {
           <Select
             maxTagCount={2}
             mode="multiple"
-            defaultValue={v}
+            defaultValue={v?.split(',')}
             style={{ width: 100 }}
             onChange={(val) => {
-              dataSources[i].coSub = val;
+              dataSources[i].coSub = val?.toString();
               setDataSources(dataSources);
             }}
           >
@@ -467,7 +490,7 @@ const ContentTable = () => {
       render: (v, r, i) => {
         return (
           <span>
-            <Popconfirm title="确认删除？" onConfirm={() => deleteOne(i)}>
+            <Popconfirm title="确认删除？" placement="left" onConfirm={() => deleteOne(i)}>
               <Button danger type="primary">
                 删除
               </Button>
@@ -486,7 +509,7 @@ const ContentTable = () => {
   });
 
   return (
-    <div style={{ border: '1px solid #ccc', padding: 5 }}>
+    <div style={{ border: '1px solid #ccc', padding: '5px 5px 0', width: '100%' }}>
       <Form layout="inline">
         <Form.Item label="选择类型">
           <Select value={type} style={{ width: 100 }} onChange={(val) => setType(val)}>
@@ -528,9 +551,9 @@ const ContentTable = () => {
       <Table
         style={{ marginTop: 5 }}
         columns={columns}
-        dataSource={dataSources}
+        dataSource={tempList}
         rowKey="key"
-        scroll={{ x: tableWidth, y: window.innerHeight - 250 }}
+        scroll={{ x: tableWidth, y: window.innerHeight - 220 }}
         pagination={{
           current: page,
           pageSize,
@@ -552,6 +575,6 @@ const ContentTable = () => {
       />
     </div>
   );
-};
+});
 
 export default ContentTable;
