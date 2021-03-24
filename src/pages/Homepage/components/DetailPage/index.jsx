@@ -145,7 +145,7 @@ const DetailPage = memo((props) => {
             {details.year}-{details.month}
           </Descriptions.Item>
           <Descriptions.Item label={lang.status}>{lang[details.status]}</Descriptions.Item>
-          <Descriptions.Item label={lang.videoType}>{lang[details.videoType]}</Descriptions.Item>
+          <Descriptions.Item label={lang.videoType}>{details.videoType}</Descriptions.Item>
           {details.bgm && (
             <Descriptions.Item label={lang.bgm}>
               <a href={details.bgm}>{details.bgm}</a>

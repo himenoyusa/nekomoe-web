@@ -23,7 +23,7 @@ const CardList = memo((props) => {
             {/* 跳转参数 state 暂未使用 */}
             <Link to={{ pathname: `/detail/${item.jpTitle}`, state: item }}>
               <div className="anime-card-img">
-                <div style={{ backgroundImage: `url(${item.thumbUrl})` }} />
+                <div style={{ backgroundImage: `url(${item.thumbUrl || 'images/蓝色001.png'})` }} />
               </div>
             </Link>
             <Tooltip

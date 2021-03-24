@@ -36,7 +36,7 @@ const Carousel = (props) => {
     <>
       <Gallery
         items={imageList}
-        onErrorImageURL="images/2021-01/Gekidol_poster.jpg"
+        onErrorImageURL="images/蓝色001.png"
         onClick={(e) => openPreview(e)}
         slideInterval={30000}
         lazyLoad
