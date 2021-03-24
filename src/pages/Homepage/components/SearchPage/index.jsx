@@ -24,12 +24,10 @@ const SearchPage = memo((props) => {
         if (res.status === 200) {
           const filtered = res.data.filter((item) => {
             let flag = false;
-            ['scTitle', 'tcTitle', 'jpTitle'].forEach((key) => {
-              item[key].forEach((title) => {
-                if (title.indexOf(keyword) !== -1) {
-                  flag = true;
-                }
-              });
+            ['scTitle', 'tcTitle', 'jpTitle', 'engTitle'].forEach((key) => {
+              if (item[key] && item[key].indexOf(keyword) !== -1) {
+                flag = true;
+              }
             });
             return flag;
           });

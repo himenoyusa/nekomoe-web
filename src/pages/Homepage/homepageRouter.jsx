@@ -10,6 +10,10 @@ const homepageRouter = [
     component: (match) => <MainPage match={match} />,
   },
   {
+    path: '/category/:param',
+    component: (match) => <MainPage match={match} />,
+  },
+  {
     path: '/detail/:name',
     component: (match) => <DetailPage match={match} />,
   },

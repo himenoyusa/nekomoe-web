@@ -1,5 +1,5 @@
 import React, { memo, useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Menu, Badge } from 'antd';
 import useGlobal from '../../myHooks/useGlobal';
 import './index.scss';
@@ -20,37 +20,36 @@ const colorList = [
   'lime',
 ];
 
+const category = ['anime', 'movie', 'ova', 'shortAnime', 'other'];
+
 const MenuList = memo((props) => {
   const [{ lang, theme }] = useGlobal();
+  const history = useHistory();
   const [menuKey, setMenuKey] = useState(['homepage']);
 
+  /**
+   * @description 点击菜单，跳转到首页，带上菜单参数对首页列表进行筛选
+   * @param {Object} e 点击事件
+   */
   const changeMenu = (e) => {
     setMenuKey([e.key]);
+    if (e.key === 'homepage') {
+      history.push('/');
+    } else if (category.includes(e.key)) {
+      history.push({
+        pathname: `/category/${e.key}`,
+        state: { isMenu: true, type: 'type', value: e.key },
+      });
+    } else {
+      history.push({
+        pathname: `/category/${e.key}`,
+        state: { isMenu: true, type: 'time', value: e.key },
+      });
+    }
   };
 
   const menuOption = () => {
-    const typeList = [
-      {
-        key: 'anime',
-        name: lang.anime,
-      },
-      {
-        key: 'movie',
-        name: lang.movie,
-      },
-      {
-        key: 'ova',
-        name: lang.ova,
-      },
-      {
-        key: 'shortAnime',
-        name: lang.shortAnime,
-      },
-      {
-        key: 'other',
-        name: lang.other,
-      },
-    ];
+    const typeList = category.map((item) => ({ key: item, name: lang[item] }));
     return (
       <>
         <Menu.Item key="homepage">
@@ -83,6 +82,22 @@ const MenuList = memo((props) => {
           <Menu.Item key="2021">
             <Badge status="processing" />
             2021
+          </Menu.Item>
+          <Menu.Item key="2020">
+            <Badge status="processing" />
+            2020
+          </Menu.Item>
+          <Menu.Item key="2019">
+            <Badge status="processing" />
+            2019
+          </Menu.Item>
+          <Menu.Item key="2018">
+            <Badge status="processing" />
+            2018
+          </Menu.Item>
+          <Menu.Item key="2017">
+            <Badge status="processing" />
+            2017
           </Menu.Item>
           <Menu.Item key="otherTime">
             <Badge status="processing" />

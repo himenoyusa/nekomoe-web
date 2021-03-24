@@ -2,12 +2,10 @@ import React, { useEffect, useState, memo } from 'react';
 import { Form, Table, Select, Input, Button, Divider, Popconfirm } from 'antd';
 import axios from 'axios';
 
-import useGlobal from '../../myHooks/useGlobal';
-
 const ContentTable = memo(() => {
-  const [{ token }] = useGlobal();
   const [subData, setSubData] = useState([]);
   const [dataSources, setDataSources] = useState([]);
+  const [tempList, setTempList] = useState([]);
   // 新增时默认会添加的参数
   const [type, setType] = useState('');
   const [year, setYear] = useState('');
@@ -15,17 +13,9 @@ const ContentTable = memo(() => {
 
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(15);
-  const [total, setTotal] = useState(1);
+  const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
-  const [autoSaveTime, setAutoSaveTime] = useState('');
-
-  useEffect(() => {
-    axios('testData/subList.json').then((res) => {
-      if (res.status === 200) {
-        setSubData(res.data);
-      }
-    });
-  }, []);
+  const [saveTime, setSaveTime] = useState('');
 
   /**
    * @description 查询列表
@@ -36,23 +26,14 @@ const ContentTable = memo(() => {
     if (search) {
       params = { type, year, month };
     }
-    axios('testData/out.json', { params }).then((res) => {
+    axios('testData/list.json', { params }).then((res) => {
       if (res.status === 200) {
-        const data = [];
-        const yearList = Object.keys(res.data);
-        yearList.forEach((y) => {
-          const monthList = Object.keys(res.data[y]);
-          monthList.forEach((m) => {
-            const resultList = res.data[y][m];
-            const mon = m.length === 1 ? `0${m}` : m;
-            resultList.forEach((item) => {
-              data.push({ ...item, year: y, month: mon, key: item.jpTitle });
-            });
-          });
-        });
-        setDataSources(data);
-        setTotal(data.length);
+        const { data } = res;
+        setTempList(data);
+        // setDataSources(data);
+        // setTotal(data.length);
       } else {
+        setTempList([]);
         setDataSources([]);
         setTotal(0);
       }
@@ -61,7 +42,26 @@ const ContentTable = memo(() => {
 
   useEffect(() => {
     getData();
-  }, [page, pageSize, year, month]);
+    axios('testData/subList.json').then((res) => {
+      if (res.status === 200) {
+        setSubData(res.data);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    let list = [...tempList];
+    if (year) {
+      list = list.filter((item) => item.year === year.toString());
+    }
+    if (month) {
+      list = list.filter((item) => item.month === month);
+    }
+    setTotal(list.length);
+    // 前端伪分页
+    const l = list.slice((page - 1) * pageSize, page * pageSize);
+    setDataSources(l);
+  }, [tempList, page, pageSize, year, month]);
 
   const add = () => {
     const newItem = {
@@ -76,21 +76,11 @@ const ContentTable = memo(() => {
     setDataSources([...dataSources]);
   };
 
-  let tempList = [...dataSources];
-  if (year) {
-    tempList = tempList.filter((item) => item.year === year.toString());
-  }
-  if (month) {
-    tempList = tempList.filter((item) => item.month === month);
-  }
-  // 前端伪分页
-  tempList.slice((page - 1) * pageSize, page * pageSize);
-
   const save = () => {
     setLoading(true);
-    console.log(tempList);
+    console.log(dataSources);
     setLoading(false);
-    setAutoSaveTime(Date.now());
+    setSaveTime(Date.now());
   };
 
   const deleteOne = (index) => {
@@ -99,8 +89,6 @@ const ContentTable = memo(() => {
     save();
     setPage(1);
   };
-
-  // useEffect(() => {});
 
   // 年份选择列
   const yearSelector = () => {
@@ -546,12 +534,12 @@ const ContentTable = memo(() => {
             {loading ? '自动保存中' : '保存'}
           </Button>
         </Form.Item>
-        {autoSaveTime && <Form.Item label="自动保存时间">{autoSaveTime}</Form.Item>}
+        {saveTime && <Form.Item label="自动保存时间">{saveTime}</Form.Item>}
       </Form>
       <Table
         style={{ marginTop: 5 }}
         columns={columns}
-        dataSource={tempList}
+        dataSource={dataSources}
         rowKey="key"
         scroll={{ x: tableWidth, y: window.innerHeight - 220 }}
         pagination={{

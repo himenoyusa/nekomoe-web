@@ -40,7 +40,7 @@ const DetailPage = memo((props) => {
           if (data.jpTitle === name) {
             detail = data;
             const url = detail.posterUrl?.split(',');
-            url.forEach((item) => {
+            url?.forEach((item) => {
               poster.push({
                 description: name,
                 original: item,

@@ -2,17 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Form, Table, Select, Input, Button, Divider, Popconfirm } from 'antd';
 import axios from 'axios';
 
-import useGlobal from '../../myHooks/useGlobal';
-
 const CoSub = () => {
-  const [{ token }] = useGlobal();
   const [dataSources, setDataSources] = useState([]);
-
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(15);
   const [total, setTotal] = useState(1);
   const [loading, setLoading] = useState(false);
-  const [autoSaveTime, setAutoSaveTime] = useState('');
 
   const getData = () => {
     axios('testData/subList.json').then((res) => {

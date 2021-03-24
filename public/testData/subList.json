@@ -4,5 +4,10 @@
     "subNameEng": "Airota",
     "subType": "sub",
     "subUrl": "https://www.airota.net/bbs/"
+  },
+  {
+    "subName": "西农YUI汉化组",
+    "subNameEng": "",
+    "subUrl": ""
   }
 ]
