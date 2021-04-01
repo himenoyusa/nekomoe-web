@@ -1,5 +1,5 @@
 import React, { memo, useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 import myAxios from 'utils/myAxios';
 import useGlobal from '../../../../myHooks/useGlobal';
 
@@ -9,63 +9,83 @@ import Carousel from '../Carousel';
 import './index.scss';
 
 const MainPage = memo((props) => {
-  const [{ lang, theme }] = useGlobal();
-  const history = useHistory();
-  const [list, setList] = useState([]);
+  const [{ lang, theme, menuKey }] = useGlobal();
+  // const history = useHistory();
+  const [rawData, setRawData] = useState([]);
+  const [tempData, setTempData] = useState([]);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(16);
   const [total, setTotal] = useState(0);
-  const [category, setCategory] = useState('');
 
-  useEffect(() => {
-    if (history.location.state?.isMenu) {
-      // 点击菜单选项时，筛选相应的列表内容
-      setCategory(history.location.state);
-    }
-  }, [history.location.state]);
-
-  useEffect(() => {
-    const { type = '', value = '' } = category;
-    myAxios('testData/list.json', { params: { type, value } })
+  const getDataList = () => {
+    myAxios('testData/list.json')
       .then((res) => {
         if (res.status === 200) {
           const { data } = res;
-          let result = data;
-          // 根据当前菜单选项进行筛选
-          if (type === 'type') {
-            result = data.filter((item) => item.type === value);
-          } else if (type === 'time') {
-            result = data.filter((item) => item.year === value);
-            if (value === 'otherTime') {
-              result = data.filter((item) => item.year < 2017);
-            }
-          }
-          setList(result);
-          setTotal(result.length);
+          setRawData(data);
+          setTempData(data);
+          setTotal(data.length);
         } else {
-          setList([]);
+          setRawData([]);
         }
       })
       .catch((err) => {
         console.log(err);
       });
     return () => {
-      setList([]);
+      setRawData([]);
     };
-  }, [page, pageSize, category]);
+  };
+
+  /**
+   * 列表的各项筛选操作
+   */
+  const filterData = () => {
+    // 根据当前菜单选项进行筛选
+    const { type = '', value = 'homepage' } = menuKey;
+    let result = rawData;
+    if (type === 'type') {
+      result = rawData.filter((item) => item.type === value);
+    } else if (type === 'time') {
+      result = rawData.filter((item) => item.year === value);
+      if (value === 'otherTime') {
+        result = rawData.filter((item) => item.year < 2017);
+      }
+    }
+    // 前端伪分页
+    setTotal(result.length);
+    const tempList = result.slice((page - 1) * pageSize, page * pageSize);
+    setTempData(tempList);
+  };
 
   const changePage = (current, size) => {
     setPage(current);
     setPageSize(size);
   };
 
+  /**
+   * 初始化时获取列表
+   */
+  useEffect(() => {
+    getDataList();
+  }, []);
+
+  /**
+   * 点击菜单选项时，筛选相应的列表内容
+   */
+  useEffect(() => {
+    setPage(1);
+    filterData();
+  }, [menuKey]);
+
+  useEffect(() => {
+    filterData();
+  }, [page, pageSize]);
+
   const borderTop = {
     borderTop: `1px solid ${theme === 'white' ? '#ddd' : '#444'}`,
     display: props.match ? 'block' : 'none',
   };
-
-  // 前端伪分页
-  const tempList = list.slice((page - 1) * pageSize, page * pageSize);
 
   return (
     <>
@@ -77,7 +97,7 @@ const MainPage = memo((props) => {
         <CardList
           page={page}
           pageSize={pageSize}
-          data={tempList}
+          data={tempData}
           total={total}
           changePage={changePage}
         />

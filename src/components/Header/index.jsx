@@ -12,9 +12,8 @@ import titleWhite from '../../images/title-white.webp';
 import './index.scss';
 
 const Header = memo((props) => {
-  const [{ lang, theme }, { changeLang, changeTheme }] = useGlobal();
+  const [{ lang, theme, searchWord }, { changeLang, changeTheme, changeSearchWord }] = useGlobal();
   const [showNav, setShowNav] = useState(false);
-  const [searchKey, setSearchKey] = useState('');
   const [backgroundColor, setBackgroundColor] = useState('inherit');
 
   // 监听页面滚动，改变头部背景色
@@ -48,8 +47,8 @@ const Header = memo((props) => {
     if (!keyword) {
       return;
     }
-    props.history.push(`/search/${keyword}`);
-    setSearchKey('');
+    props.history.push(`/search/${keyword.replace(/\//g, '\\')}`);
+    changeSearchWord(keyword);
   };
 
   const langOption = () => {
@@ -61,9 +60,9 @@ const Header = memo((props) => {
         <Select.Option key="tc" value="tc">
           繁體
         </Select.Option>
-        <Select.Option key="jp" value="jp">
+        {/* <Select.Option key="jp" value="jp">
           日本語
-        </Select.Option>
+        </Select.Option> */}
       </>
     );
   };
@@ -88,10 +87,10 @@ const Header = memo((props) => {
           </Link>
           <span className="mobile-invisible">
             <Input.Search
-              value={searchKey}
+              // value={searchWord}
               style={{ width: 200, marginTop: 15, marginLeft: 10 }}
               placeholder={lang.searchPlaceholder}
-              onChange={(e) => setSearchKey(e.target.value)}
+              // onChange={(e) => changeSearchWord(e.target.value)}
               onSearch={(val) => onSearch(val)}
             />
           </span>

@@ -10,6 +10,8 @@ const initialState = {
   lang: getLang(),
   theme: getTheme(),
   token: getToken(),
+  menuKey: { type: '', value: 'homepage' },
+  searchWord: '',
 };
 
 const actions = {
@@ -24,6 +26,12 @@ const actions = {
   changeUser: (store, token) => {
     setToken(token);
     store.setState({ token });
+  },
+  changeMenu: (store, menuKey) => {
+    store.setState({ menuKey });
+  },
+  changeSearchWord: (store, searchWord) => {
+    store.setState({ searchWord });
   },
 };
 

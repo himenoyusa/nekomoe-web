@@ -1,6 +1,6 @@
 import React, { useEffect, useState, memo } from 'react';
-import { Form, Table, Select, Input, Button, Divider, Popconfirm } from 'antd';
-import axios from 'axios';
+import { Form, Table, Select, Input, Button, Divider, Popconfirm, message } from 'antd';
+import myAxios from 'utils/myAxios';
 
 const ContentTable = memo(() => {
   const [subData, setSubData] = useState([]);
@@ -24,9 +24,9 @@ const ContentTable = memo(() => {
   const getData = (search) => {
     let params = null;
     if (search) {
-      params = { type, year, month };
+      params = { type, year, month, page, pageSize };
     }
-    axios('testData/list.json', { params }).then((res) => {
+    myAxios('testData/list.json', { params }).then((res) => {
       if (res.status === 200) {
         const { data } = res;
         setTempList(data);
@@ -42,7 +42,7 @@ const ContentTable = memo(() => {
 
   useEffect(() => {
     getData();
-    axios('testData/subList.json').then((res) => {
+    myAxios('testData/subList.json').then((res) => {
       if (res.status === 200) {
         setSubData(res.data);
       }
@@ -69,8 +69,8 @@ const ContentTable = memo(() => {
       type,
       year,
       month,
-      subType: ['sc', 'tc'],
-      posterUrl: [],
+      subType: 'sc,tc',
+      posterUrl: '',
     };
     dataSources.unshift(newItem);
     setDataSources([...dataSources]);
@@ -78,9 +78,15 @@ const ContentTable = memo(() => {
 
   const save = () => {
     setLoading(true);
-    console.log(dataSources);
+    myAxios.post('collection', dataSources).then((res) => {
+      if (res.status === 200 || res.status === 201) {
+        message.success('保存成功');
+        setSaveTime(Date.now());
+      } else {
+        message.error(res.data.message);
+      }
+    });
     setLoading(false);
-    setSaveTime(Date.now());
   };
 
   const deleteOne = (index) => {
@@ -551,7 +557,7 @@ const ContentTable = memo(() => {
             setPage(current);
             setPageSize(size);
           },
-          pageSizeOptions: ['10', '15', '20', '25', '30', '50'],
+          pageSizeOptions: ['10', '15', '20', '25', '30', '50', '300'],
           showSizeChanger: true,
           onShowSizeChange: (current, size) => {
             setPage(1);

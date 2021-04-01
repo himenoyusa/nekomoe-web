@@ -1,5 +1,5 @@
 import React, { memo, useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+// import { Link, useHistory } from 'react-router-dom';
 import { Menu, Badge } from 'antd';
 import useGlobal from '../../myHooks/useGlobal';
 import './index.scss';
@@ -23,28 +23,21 @@ const colorList = [
 const category = ['anime', 'movie', 'ova', 'shortAnime', 'other'];
 
 const MenuList = memo((props) => {
-  const [{ lang, theme }] = useGlobal();
-  const history = useHistory();
-  const [menuKey, setMenuKey] = useState(['homepage']);
+  const [{ lang, theme, menuKey }, { changeMenu }] = useGlobal();
+  // const history = useHistory();
+  // const [menuKey, setMenuKey] = useState(['homepage']);
 
   /**
    * @description 点击菜单，跳转到首页，带上菜单参数对首页列表进行筛选
    * @param {Object} e 点击事件
    */
-  const changeMenu = (e) => {
-    setMenuKey([e.key]);
+  const setMenuKey = (e) => {
     if (e.key === 'homepage') {
-      history.push('/');
+      changeMenu({ type: '', value: e.key });
     } else if (category.includes(e.key)) {
-      history.push({
-        pathname: `/category/${e.key}`,
-        state: { isMenu: true, type: 'type', value: e.key },
-      });
+      changeMenu({ type: 'type', value: e.key });
     } else {
-      history.push({
-        pathname: `/category/${e.key}`,
-        state: { isMenu: true, type: 'time', value: e.key },
-      });
+      changeMenu({ type: 'time', value: e.key });
     }
   };
 
@@ -119,8 +112,8 @@ const MenuList = memo((props) => {
           mode={props.mode || 'horizontal'}
           triggerSubMenuAction="click"
           getPopupContainer={(e) => e}
-          onClick={(val) => changeMenu(val)}
-          selectedKeys={menuKey}
+          onClick={(val) => setMenuKey(val)}
+          selectedKeys={[menuKey.value]}
           style={{ background: 'transparent' }}
         >
           {menuOption()}

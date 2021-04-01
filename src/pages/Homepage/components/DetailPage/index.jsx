@@ -36,16 +36,17 @@ const DetailPage = memo((props) => {
       if (res.status === 200) {
         let detail = {};
         const poster = [];
+        const names = name.replace(/\\/g, '/');
         res.data.forEach((data) => {
-          if (data.jpTitle === name) {
+          if (data.jpTitle === names) {
             detail = data;
             const url = detail.posterUrl?.split(',');
             url?.forEach((item) => {
               poster.push({
-                description: name,
+                description: names,
                 original: item,
-                originalAlt: name,
-                originalTitle: name,
+                originalAlt: names,
+                originalTitle: names,
               });
             });
           }
@@ -62,24 +63,6 @@ const DetailPage = memo((props) => {
       setDetails({});
     };
   }, [name]);
-
-  const renderStaff = () => {
-    if (details && details.staff) {
-      const staffObject = [];
-      const keyList = Object.keys(details.staff);
-      keyList.forEach((key) => {
-        if (details.staff[key].length) {
-          staffObject.push(
-            <Descriptions.Item label={lang[key]} key={lang[key]}>
-              {details.staff[key].join('、')}
-            </Descriptions.Item>
-          );
-        }
-      });
-      return staffObject;
-    }
-    return null;
-  };
 
   const renderCoSub = () => {
     const subs = details.coSub?.split(',');
@@ -123,13 +106,15 @@ const DetailPage = memo((props) => {
           {details.tcTitle && (
             <Descriptions.Item label={lang.tcName}>{details.tcTitle}</Descriptions.Item>
           )}
-          {details.engName && (
-            <Descriptions.Item label={lang.engName}>{details.engName}</Descriptions.Item>
+          {details.engTitle && (
+            <Descriptions.Item label={lang.engName}>{details.engTitle}</Descriptions.Item>
           )}
           <Descriptions.Item label={lang.type}>{lang[details.type]}</Descriptions.Item>
-          <Descriptions.Item label={lang.officialSite}>
-            <a href={details.officialSite}>{details.officialSite}</a>
-          </Descriptions.Item>
+          {details.officialSite && (
+            <Descriptions.Item label={lang.officialSite}>
+              <a href={details.officialSite}>{details.officialSite}</a>
+            </Descriptions.Item>
+          )}
         </Descriptions>
       </div>
       <div className="right-message-box">
@@ -163,11 +148,6 @@ const DetailPage = memo((props) => {
           )}
         </Descriptions>
       </div>
-      {/* <div className="right-message-box">
-        <Descriptions column={1} title={lang.staff}>
-          {renderStaff()}
-        </Descriptions>
-      </div> */}
     </div>
   );
 });

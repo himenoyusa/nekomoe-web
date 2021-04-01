@@ -1,5 +1,5 @@
 import React, { memo, useState, useEffect } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+// import { useParams, useHistory } from 'react-router-dom';
 import { Input } from 'antd';
 import myAxios from 'utils/myAxios';
 import useGlobal from '../../../../myHooks/useGlobal';
@@ -10,10 +10,11 @@ import logoDark from '../../../../images/logo-dark.webp';
 import './index.scss';
 
 const SearchPage = memo((props) => {
-  const [{ lang, theme }] = useGlobal();
-  const { keyword } = useParams();
-  const history = useHistory();
-  const [list, setList] = useState([]);
+  const [{ lang, theme, searchWord }, { changeSearchWord }] = useGlobal();
+  // const { keyword } = useParams();
+  // const history = useHistory();
+  const [rawData, setRawData] = useState([]);
+  const [tempData, setTempData] = useState([]);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(16);
   const [total, setTotal] = useState(0);
@@ -22,32 +23,41 @@ const SearchPage = memo((props) => {
     myAxios('testData/list.json')
       .then((res) => {
         if (res.status === 200) {
-          const filtered = res.data.filter((item) => {
-            let flag = false;
-            ['scTitle', 'tcTitle', 'jpTitle', 'engTitle'].forEach((key) => {
-              if (item[key] && item[key].indexOf(keyword) !== -1) {
-                flag = true;
-              }
-            });
-            return flag;
-          });
-          setList(filtered);
-          setTotal(filtered.length);
+          const { data } = res;
+          setRawData(data);
+          setTempData(data);
+          setTotal(data.length);
         } else {
-          setList([]);
+          setRawData([]);
         }
       })
       .catch((err) => {
         console.log(err);
       });
     return () => {
-      setList([]);
+      setRawData([]);
     };
   };
 
-  useEffect(() => {
-    getSearchResult();
-  }, [page, pageSize, keyword]);
+  /**
+   * 对全列表进行搜索
+   */
+  const filterSearchResult = () => {
+    const filtered = rawData.filter((item) => {
+      let flag = false;
+      ['scTitle', 'tcTitle', 'jpTitle', 'engTitle'].forEach((key) => {
+        if (item[key] && item[key].indexOf(searchWord) !== -1) {
+          flag = true;
+        }
+      });
+      return flag;
+    });
+
+    // 前端伪分页
+    setTotal(filtered.length);
+    const tempList = filtered.slice((page - 1) * pageSize, page * pageSize);
+    setTempData(tempList);
+  };
 
   const changePage = (current, size) => {
     setPage(current);
@@ -55,10 +65,30 @@ const SearchPage = memo((props) => {
   };
 
   const onSearch = (key) => {
-    if (key !== '') {
-      history.push(`/search/${key}`);
-    }
+    changeSearchWord(key);
   };
+
+  /**
+   * 初始化时获取列表
+   */
+  useEffect(() => {
+    getSearchResult();
+  }, []);
+
+  /**
+   * 分页时筛选相应内容
+   */
+  useEffect(() => {
+    filterSearchResult();
+  }, [page, pageSize]);
+
+  /**
+   * 搜索时筛选相应内容
+   */
+  useEffect(() => {
+    setPage(1);
+    filterSearchResult();
+  }, [searchWord]);
 
   const borderTop = {
     borderTop: `1px solid ${theme === 'white' ? '#ddd' : '#444'}`,
@@ -69,9 +99,6 @@ const SearchPage = memo((props) => {
     backgroundImage: `url(${theme === 'white' ? logoWhite : logoDark})`,
   };
 
-  // 前端伪分页
-  const tempList = list.slice((page - 1) * pageSize, page * pageSize);
-
   return (
     <div className="search-content" style={borderTop}>
       <div className="search-column">
@@ -79,7 +106,7 @@ const SearchPage = memo((props) => {
         <span className="search-input">
           <Input.Search
             size="large"
-            defaultValue={keyword}
+            defaultValue={searchWord}
             enterButton={lang.search}
             style={{ width: 400, maxWidth: '60vw', marginLeft: 10 }}
             placeholder={lang.searchPlaceholder}
@@ -88,7 +115,7 @@ const SearchPage = memo((props) => {
         </span>
       </div>
       <CardList
-        data={tempList}
+        data={tempData}
         page={page}
         pageSize={pageSize}
         total={total}

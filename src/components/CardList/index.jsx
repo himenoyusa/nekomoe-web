@@ -21,7 +21,7 @@ const CardList = memo((props) => {
         {props.data?.map((item) => (
           <div className="flex-item anime-card" key={item.jpTitle}>
             {/* 跳转参数 state 暂未使用 */}
-            <Link to={{ pathname: `/detail/${item.jpTitle}`, state: item }}>
+            <Link to={{ pathname: `/detail/${item.jpTitle.replace(/\//g, '\\')}`, state: item }}>
               <div className="anime-card-img">
                 <div style={{ backgroundImage: `url(${item.thumbUrl || 'images/蓝色001.png'})` }} />
               </div>
