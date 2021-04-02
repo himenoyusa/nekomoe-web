@@ -1,6 +1,7 @@
 import React, { useEffect, useState, memo } from 'react';
 import { Form, Table, Select, Input, Button, Divider, Popconfirm, message } from 'antd';
-import myAxios from 'utils/myAxios';
+// import myAxios from 'utils/myAxios';
+import axios from 'axios';
 
 const ContentTable = memo(() => {
   const [subData, setSubData] = useState([]);
@@ -26,10 +27,10 @@ const ContentTable = memo(() => {
     if (search) {
       params = { type, year, month, page, pageSize };
     }
-    myAxios('testData/list.json', { params }).then((res) => {
+    axios('http://localhost:3001/collection').then((res) => {
       if (res.status === 200) {
         const { data } = res;
-        setTempList(data);
+        setTempList(data[0]);
         // setDataSources(data);
         // setTotal(data.length);
       } else {
@@ -42,7 +43,7 @@ const ContentTable = memo(() => {
 
   useEffect(() => {
     getData();
-    myAxios('testData/subList.json').then((res) => {
+    axios('testData/subList.json').then((res) => {
       if (res.status === 200) {
         setSubData(res.data);
       }
@@ -78,7 +79,7 @@ const ContentTable = memo(() => {
 
   const save = () => {
     setLoading(true);
-    myAxios.post('collection', dataSources).then((res) => {
+    axios.post('http://localhost:3001/collection', dataSources).then((res) => {
       if (res.status === 200 || res.status === 201) {
         message.success('保存成功');
         setSaveTime(Date.now());

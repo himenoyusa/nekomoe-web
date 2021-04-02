@@ -76,7 +76,7 @@ const MainPage = memo((props) => {
   useEffect(() => {
     setPage(1);
     filterData();
-  }, [menuKey]);
+  }, [menuKey, rawData]);
 
   useEffect(() => {
     filterData();
